@@ -10,3 +10,10 @@ node_modules/
 dist/
 build/
 .cursor/debug.log
+
+# Next.js
+.next/
+next-env.d.ts
+
+# Local database
+.moff/

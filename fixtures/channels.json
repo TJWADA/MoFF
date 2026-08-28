@@ -1,0 +1,44 @@
+[
+  {
+    "id": "UC0000000000000000000001",
+    "handle": "@tickertantrum",
+    "name": "Ticker Tantrum",
+    "blurb": "Daily market reactions, heavy on megacap tech.",
+    "avatarUrl": null
+  },
+  {
+    "id": "UC0000000000000000000002",
+    "handle": "@thecompoundcurve",
+    "name": "The Compound Curve",
+    "blurb": "Slow, boring, valuation-first analysis.",
+    "avatarUrl": null
+  },
+  {
+    "id": "UC0000000000000000000003",
+    "handle": "@moonshotmondays",
+    "name": "Moonshot Mondays",
+    "blurb": "High conviction, high volatility, low survival rate.",
+    "avatarUrl": null
+  },
+  {
+    "id": "UC0000000000000000000004",
+    "handle": "@basiscase",
+    "name": "Basis Case",
+    "blurb": "Macro framing with occasional single-name calls.",
+    "avatarUrl": null
+  },
+  {
+    "id": "UC0000000000000000000005",
+    "handle": "@chartsandvibes",
+    "name": "Charts & Vibes",
+    "blurb": "Technical setups, drawn live, mixed results.",
+    "avatarUrl": null
+  },
+  {
+    "id": "UC0000000000000000000006",
+    "handle": "@therealalphadesk",
+    "name": "The Real Alpha Desk",
+    "blurb": "Confident, loud, frequently wrong.",
+    "avatarUrl": null
+  }
+]
