@@ -31,7 +31,7 @@ const SYMBOLS = [
 ];
 
 /** Names everyone covers at once, so recent calls overlap and can disagree. */
-const HOT = ["NVDA", "TSLA", "PLTR", "COIN", "META", "AMD"];
+const HOT = ["NVDA", "TSLA", "PLTR", "COIN"];
 
 type Persona = {
   id: string;
@@ -40,6 +40,11 @@ type Persona = {
   blurb: string;
   /** Probability a resolved call lands on the correct side. */
   skill: number;
+  /**
+   * Probability an as-yet-unresolved call is bullish. Spreading these apart is
+   * what makes live coverage genuinely split rather than uniformly bullish.
+   */
+  bias: number;
   videoCount: number;
   favourites: string[];
 };
@@ -51,6 +56,7 @@ const PERSONAS: Persona[] = [
     name: "Ticker Tantrum",
     blurb: "Daily market reactions, heavy on megacap tech.",
     skill: 0.66,
+    bias: 0.8,
     videoCount: 16,
     favourites: ["NVDA", "MSFT", "GOOGL", "AAPL"],
   },
@@ -60,6 +66,7 @@ const PERSONAS: Persona[] = [
     name: "The Compound Curve",
     blurb: "Slow, boring, valuation-first analysis.",
     skill: 0.63,
+    bias: 0.7,
     videoCount: 14,
     favourites: ["AAPL", "MSFT", "AMZN", "META"],
   },
@@ -69,6 +76,7 @@ const PERSONAS: Persona[] = [
     name: "Moonshot Mondays",
     blurb: "High conviction, high volatility, low survival rate.",
     skill: 0.36,
+    bias: 0.9,
     videoCount: 16,
     favourites: ["PLTR", "COIN", "TSLA", "AMD"],
   },
@@ -78,6 +86,7 @@ const PERSONAS: Persona[] = [
     name: "Basis Case",
     blurb: "Macro framing with occasional single-name calls.",
     skill: 0.52,
+    bias: 0.28,
     videoCount: 13,
     favourites: ["META", "INTC", "NVDA", "AMZN"],
   },
@@ -87,6 +96,7 @@ const PERSONAS: Persona[] = [
     name: "Charts & Vibes",
     blurb: "Technical setups, drawn live, mixed results.",
     skill: 0.48,
+    bias: 0.5,
     videoCount: 15,
     favourites: ["TSLA", "AMD", "COIN", "NVDA"],
   },
@@ -96,6 +106,7 @@ const PERSONAS: Persona[] = [
     name: "The Real Alpha Desk",
     blurb: "Confident, loud, frequently wrong.",
     skill: 0.34,
+    bias: 0.22,
     videoCount: 14,
     favourites: ["INTC", "PLTR", "TSLA", "COIN"],
   },
@@ -233,7 +244,7 @@ function main() {
       for (let v = 0; v < p.videoCount; v++) {
         // Weight towards the recent past so the consensus view has live calls
         // to aggregate, while still leaving a long resolved history to score.
-        const recent = rand() < 0.45;
+        const recent = rand() < 0.5;
         const daysAgo = recent
           ? Math.floor(3 + rand() * 82)
           : Math.floor(95 + rand() * 400);
@@ -249,7 +260,7 @@ function main() {
         for (let c = 0; c < nCalls; c++) {
           // Recent videos converge on a handful of widely covered names, which
           // is what produces genuine agreement and disagreement to display.
-          const pool = recent && rand() < 0.75 ? HOT : p.favourites;
+          const pool = recent && rand() < 0.85 ? HOT : p.favourites;
           const symbol = rand() < 0.8 ? pick(pool) : pick(SYMBOLS.slice(1));
           if (used.has(symbol)) continue;
           used.add(symbol);
@@ -259,8 +270,9 @@ function main() {
 
           let direction: "long" | "short";
           if (truth === undefined) {
-            // Still-open call: no future to lean on, so bias by persona mood.
-            direction = rand() < 0.68 ? "long" : "short";
+            // Still open, so there is no outcome to lean on: fall back to the
+            // persona's standing temperament.
+            direction = rand() < p.bias ? "long" : "short";
           } else {
             const correct = truth > 0 ? "long" : "short";
             const wrong = correct === "long" ? "short" : "long";

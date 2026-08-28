@@ -1,314 +1,315 @@
 {
   "vid00001": [
     {
-      "symbol": "AMZN",
+      "symbol": "INTC",
       "direction": "long",
-      "conviction": 0.64,
+      "conviction": 0.93,
       "horizonDays": 90,
-      "rationale": "Ticker Tantrum argues AMZN is mispriced to the upside over the next 90 days.",
-      "quote": "On AMZN -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 475
+      "rationale": "Ticker Tantrum argues INTC is mispriced to the upside over the next 90 days.",
+      "quote": "On INTC -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 469
     }
   ],
   "vid00002": [
     {
-      "symbol": "NVDA",
+      "symbol": "PLTR",
       "direction": "long",
-      "conviction": 0.58,
-      "horizonDays": 30,
-      "rationale": "Ticker Tantrum argues NVDA is mispriced to the upside over the next 30 days.",
-      "quote": "On NVDA -- this one is going a lot higher over the next couple of months.",
-      "quoteStartSeconds": 253
-    },
-    {
-      "symbol": "MSFT",
-      "direction": "long",
-      "conviction": 0.64,
+      "conviction": 0.48,
       "horizonDays": 60,
-      "rationale": "Ticker Tantrum argues MSFT is mispriced to the upside over the next 60 days.",
-      "quote": "On MSFT -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 786
+      "rationale": "Ticker Tantrum argues PLTR is mispriced to the upside over the next 60 days.",
+      "quote": "On PLTR -- I am adding here, this is the entry I have been waiting for.",
+      "quoteStartSeconds": 368
     }
   ],
   "vid00003": [
     {
-      "symbol": "AAPL",
-      "direction": "short",
-      "conviction": 0.9,
-      "horizonDays": 30,
-      "rationale": "Ticker Tantrum expects AAPL to underperform over the next 30 days.",
-      "quote": "On AAPL -- taking profits and stepping aside on this name.",
-      "quoteStartSeconds": 832
+      "symbol": "NVDA",
+      "direction": "long",
+      "conviction": 0.49,
+      "horizonDays": 90,
+      "rationale": "Ticker Tantrum argues NVDA is mispriced to the upside over the next 90 days.",
+      "quote": "On NVDA -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 891
+    },
+    {
+      "symbol": "GOOGL",
+      "direction": "long",
+      "conviction": 0.54,
+      "horizonDays": 90,
+      "rationale": "Ticker Tantrum argues GOOGL is mispriced to the upside over the next 90 days.",
+      "quote": "On GOOGL -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 539
     }
   ],
   "vid00004": [
     {
-      "symbol": "PLTR",
+      "symbol": "MSFT",
       "direction": "long",
-      "conviction": 0.9,
+      "conviction": 0.55,
       "horizonDays": 60,
-      "rationale": "Ticker Tantrum argues PLTR is mispriced to the upside over the next 60 days.",
-      "quote": "On PLTR -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 464
+      "rationale": "Ticker Tantrum argues MSFT is mispriced to the upside over the next 60 days.",
+      "quote": "On MSFT -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 422
+    },
+    {
+      "symbol": "AAPL",
+      "direction": "short",
+      "conviction": 0.73,
+      "horizonDays": 90,
+      "rationale": "Ticker Tantrum expects AAPL to underperform over the next 90 days.",
+      "quote": "On AAPL -- fading this move, the fundamentals do not support it.",
+      "quoteStartSeconds": 897
     }
   ],
   "vid00005": [
     {
-      "symbol": "GOOGL",
+      "symbol": "PLTR",
       "direction": "short",
-      "conviction": 0.85,
-      "horizonDays": 90,
-      "rationale": "Ticker Tantrum expects GOOGL to underperform over the next 90 days.",
-      "quote": "On GOOGL -- fading this move, the fundamentals do not support it.",
-      "quoteStartSeconds": 615
+      "conviction": 0.93,
+      "horizonDays": 60,
+      "rationale": "Ticker Tantrum expects PLTR to underperform over the next 60 days.",
+      "quote": "On PLTR -- this rolls over from here, I would not touch it.",
+      "quoteStartSeconds": 310
+    },
+    {
+      "symbol": "MSFT",
+      "direction": "short",
+      "conviction": 0.94,
+      "horizonDays": 30,
+      "rationale": "Ticker Tantrum expects MSFT to underperform over the next 30 days.",
+      "quote": "On MSFT -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 840
     }
   ],
   "vid00006": [
     {
-      "symbol": "AAPL",
-      "direction": "long",
-      "conviction": 0.71,
+      "symbol": "COIN",
+      "direction": "short",
+      "conviction": 0.67,
       "horizonDays": 60,
-      "rationale": "Ticker Tantrum argues AAPL is mispriced to the upside over the next 60 days.",
-      "quote": "On AAPL -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 325
+      "rationale": "Ticker Tantrum expects COIN to underperform over the next 60 days.",
+      "quote": "On COIN -- fading this move, the fundamentals do not support it.",
+      "quoteStartSeconds": 324
+    },
+    {
+      "symbol": "PLTR",
+      "direction": "long",
+      "conviction": 0.92,
+      "horizonDays": 60,
+      "rationale": "Ticker Tantrum argues PLTR is mispriced to the upside over the next 60 days.",
+      "quote": "On PLTR -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 376
     }
   ],
   "vid00007": [
     {
-      "symbol": "AMD",
-      "direction": "short",
-      "conviction": 0.6,
+      "symbol": "TSLA",
+      "direction": "long",
+      "conviction": 0.49,
       "horizonDays": 90,
-      "rationale": "Ticker Tantrum expects AMD to underperform over the next 90 days.",
-      "quote": "On AMD -- fading this move, the fundamentals do not support it.",
-      "quoteStartSeconds": 537
+      "rationale": "Ticker Tantrum argues TSLA is mispriced to the upside over the next 90 days.",
+      "quote": "On TSLA -- I am adding here, this is the entry I have been waiting for.",
+      "quoteStartSeconds": 766
     }
   ],
   "vid00008": [
     {
-      "symbol": "PLTR",
+      "symbol": "MSFT",
       "direction": "long",
-      "conviction": 0.86,
-      "horizonDays": 60,
-      "rationale": "Ticker Tantrum argues PLTR is mispriced to the upside over the next 60 days.",
-      "quote": "On PLTR -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 473
+      "conviction": 0.73,
+      "horizonDays": 30,
+      "rationale": "Ticker Tantrum argues MSFT is mispriced to the upside over the next 30 days.",
+      "quote": "On MSFT -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 335
     },
     {
-      "symbol": "AMD",
+      "symbol": "AMZN",
       "direction": "long",
-      "conviction": 0.57,
-      "horizonDays": 90,
-      "rationale": "Ticker Tantrum argues AMD is mispriced to the upside over the next 90 days.",
-      "quote": "On AMD -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 439
+      "conviction": 0.44,
+      "horizonDays": 30,
+      "rationale": "Ticker Tantrum argues AMZN is mispriced to the upside over the next 30 days.",
+      "quote": "On AMZN -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 884
     }
   ],
   "vid00009": [
     {
-      "symbol": "TSLA",
+      "symbol": "AMD",
       "direction": "long",
-      "conviction": 0.78,
-      "horizonDays": 30,
-      "rationale": "Ticker Tantrum argues TSLA is mispriced to the upside over the next 30 days.",
-      "quote": "On TSLA -- I am adding here, this is the entry I have been waiting for.",
-      "quoteStartSeconds": 622
+      "conviction": 0.71,
+      "horizonDays": 90,
+      "rationale": "Ticker Tantrum argues AMD is mispriced to the upside over the next 90 days.",
+      "quote": "On AMD -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 742
     }
   ],
   "vid00010": [
     {
-      "symbol": "GOOGL",
-      "direction": "long",
-      "conviction": 0.88,
-      "horizonDays": 30,
-      "rationale": "Ticker Tantrum argues GOOGL is mispriced to the upside over the next 30 days.",
-      "quote": "On GOOGL -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 226
+      "symbol": "MSFT",
+      "direction": "short",
+      "conviction": 0.36,
+      "horizonDays": 60,
+      "rationale": "Ticker Tantrum expects MSFT to underperform over the next 60 days.",
+      "quote": "On MSFT -- this rolls over from here, I would not touch it.",
+      "quoteStartSeconds": 315
     }
   ],
   "vid00011": [
     {
-      "symbol": "COIN",
+      "symbol": "MSFT",
       "direction": "short",
-      "conviction": 0.87,
-      "horizonDays": 60,
-      "rationale": "Ticker Tantrum expects COIN to underperform over the next 60 days.",
-      "quote": "On COIN -- this rolls over from here, I would not touch it.",
-      "quoteStartSeconds": 881
+      "conviction": 0.49,
+      "horizonDays": 90,
+      "rationale": "Ticker Tantrum expects MSFT to underperform over the next 90 days.",
+      "quote": "On MSFT -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 296
     }
   ],
   "vid00012": [
     {
-      "symbol": "MSFT",
-      "direction": "long",
-      "conviction": 0.53,
-      "horizonDays": 30,
-      "rationale": "Ticker Tantrum argues MSFT is mispriced to the upside over the next 30 days.",
-      "quote": "On MSFT -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 902
+      "symbol": "GOOGL",
+      "direction": "short",
+      "conviction": 0.77,
+      "horizonDays": 90,
+      "rationale": "Ticker Tantrum expects GOOGL to underperform over the next 90 days.",
+      "quote": "On GOOGL -- I am trimming everything here, the risk is to the downside.",
+      "quoteStartSeconds": 616
     }
   ],
   "vid00013": [
     {
-      "symbol": "TSLA",
+      "symbol": "INTC",
       "direction": "long",
-      "conviction": 0.81,
-      "horizonDays": 30,
-      "rationale": "Ticker Tantrum argues TSLA is mispriced to the upside over the next 30 days.",
-      "quote": "On TSLA -- this one is going a lot higher over the next couple of months.",
-      "quoteStartSeconds": 269
+      "conviction": 0.64,
+      "horizonDays": 60,
+      "rationale": "Ticker Tantrum argues INTC is mispriced to the upside over the next 60 days.",
+      "quote": "On INTC -- the setup is clean and I am sizing up into it.",
+      "quoteStartSeconds": 606
+    },
+    {
+      "symbol": "NVDA",
+      "direction": "long",
+      "conviction": 0.88,
+      "horizonDays": 60,
+      "rationale": "Ticker Tantrum argues NVDA is mispriced to the upside over the next 60 days.",
+      "quote": "On NVDA -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 355
     }
   ],
   "vid00014": [
     {
-      "symbol": "MSFT",
-      "direction": "short",
-      "conviction": 0.79,
-      "horizonDays": 60,
-      "rationale": "Ticker Tantrum expects MSFT to underperform over the next 60 days.",
-      "quote": "On MSFT -- fading this move, the fundamentals do not support it.",
-      "quoteStartSeconds": 690
+      "symbol": "INTC",
+      "direction": "long",
+      "conviction": 0.92,
+      "horizonDays": 90,
+      "rationale": "Ticker Tantrum argues INTC is mispriced to the upside over the next 90 days.",
+      "quote": "On INTC -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 883
     },
     {
-      "symbol": "GOOGL",
-      "direction": "long",
-      "conviction": 0.79,
-      "horizonDays": 60,
-      "rationale": "Ticker Tantrum argues GOOGL is mispriced to the upside over the next 60 days.",
-      "quote": "On GOOGL -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 778
+      "symbol": "MSFT",
+      "direction": "short",
+      "conviction": 0.93,
+      "horizonDays": 30,
+      "rationale": "Ticker Tantrum expects MSFT to underperform over the next 30 days.",
+      "quote": "On MSFT -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 223
     }
   ],
   "vid00015": [
     {
-      "symbol": "GOOGL",
+      "symbol": "COIN",
+      "direction": "short",
+      "conviction": 0.75,
+      "horizonDays": 30,
+      "rationale": "Ticker Tantrum expects COIN to underperform over the next 30 days.",
+      "quote": "On COIN -- I am trimming everything here, the risk is to the downside.",
+      "quoteStartSeconds": 144
+    },
+    {
+      "symbol": "PLTR",
       "direction": "long",
-      "conviction": 0.56,
-      "horizonDays": 60,
-      "rationale": "Ticker Tantrum argues GOOGL is mispriced to the upside over the next 60 days.",
-      "quote": "On GOOGL -- this one is going a lot higher over the next couple of months.",
-      "quoteStartSeconds": 849
+      "conviction": 0.66,
+      "horizonDays": 90,
+      "rationale": "Ticker Tantrum argues PLTR is mispriced to the upside over the next 90 days.",
+      "quote": "On PLTR -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 596
     }
   ],
   "vid00016": [
     {
-      "symbol": "GOOGL",
+      "symbol": "COIN",
       "direction": "long",
-      "conviction": 0.82,
+      "conviction": 0.6,
+      "horizonDays": 30,
+      "rationale": "Ticker Tantrum argues COIN is mispriced to the upside over the next 30 days.",
+      "quote": "On COIN -- the setup is clean and I am sizing up into it.",
+      "quoteStartSeconds": 314
+    },
+    {
+      "symbol": "NVDA",
+      "direction": "long",
+      "conviction": 0.58,
       "horizonDays": 90,
-      "rationale": "Ticker Tantrum argues GOOGL is mispriced to the upside over the next 90 days.",
-      "quote": "On GOOGL -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 519
+      "rationale": "Ticker Tantrum argues NVDA is mispriced to the upside over the next 90 days.",
+      "quote": "On NVDA -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 522
     }
   ],
   "vid00017": [
     {
-      "symbol": "MSFT",
+      "symbol": "AMZN",
       "direction": "short",
-      "conviction": 0.78,
+      "conviction": 0.73,
       "horizonDays": 60,
-      "rationale": "The Compound Curve expects MSFT to underperform over the next 60 days.",
-      "quote": "On MSFT -- taking profits and stepping aside on this name.",
-      "quoteStartSeconds": 804
+      "rationale": "The Compound Curve expects AMZN to underperform over the next 60 days.",
+      "quote": "On AMZN -- fading this move, the fundamentals do not support it.",
+      "quoteStartSeconds": 252
     }
   ],
   "vid00018": [
     {
-      "symbol": "META",
+      "symbol": "AAPL",
       "direction": "long",
-      "conviction": 0.75,
-      "horizonDays": 30,
-      "rationale": "The Compound Curve argues META is mispriced to the upside over the next 30 days.",
-      "quote": "On META -- I am adding here, this is the entry I have been waiting for.",
-      "quoteStartSeconds": 144
+      "conviction": 0.46,
+      "horizonDays": 60,
+      "rationale": "The Compound Curve argues AAPL is mispriced to the upside over the next 60 days.",
+      "quote": "On AAPL -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 352
+    },
+    {
+      "symbol": "MSFT",
+      "direction": "long",
+      "conviction": 0.88,
+      "horizonDays": 60,
+      "rationale": "The Compound Curve argues MSFT is mispriced to the upside over the next 60 days.",
+      "quote": "On MSFT -- I am adding here, this is the entry I have been waiting for.",
+      "quoteStartSeconds": 464
     }
   ],
   "vid00019": [
     {
-      "symbol": "AMZN",
+      "symbol": "NVDA",
       "direction": "long",
-      "conviction": 0.5,
-      "horizonDays": 90,
-      "rationale": "The Compound Curve argues AMZN is mispriced to the upside over the next 90 days.",
-      "quote": "On AMZN -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 810
-    },
-    {
-      "symbol": "META",
-      "direction": "long",
-      "conviction": 0.6,
-      "horizonDays": 30,
-      "rationale": "The Compound Curve argues META is mispriced to the upside over the next 30 days.",
-      "quote": "On META -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 314
+      "conviction": 0.52,
+      "horizonDays": 60,
+      "rationale": "The Compound Curve argues NVDA is mispriced to the upside over the next 60 days.",
+      "quote": "On NVDA -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 707
     }
   ],
   "vid00020": [
     {
-      "symbol": "MSFT",
-      "direction": "short",
-      "conviction": 0.66,
-      "horizonDays": 60,
-      "rationale": "The Compound Curve expects MSFT to underperform over the next 60 days.",
-      "quote": "On MSFT -- fading this move, the fundamentals do not support it.",
-      "quoteStartSeconds": 280
-    }
-  ],
-  "vid00021": [
-    {
-      "symbol": "META",
+      "symbol": "COIN",
       "direction": "long",
-      "conviction": 0.48,
-      "horizonDays": 60,
-      "rationale": "The Compound Curve argues META is mispriced to the upside over the next 60 days.",
-      "quote": "On META -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 523
-    }
-  ],
-  "vid00022": [
-    {
-      "symbol": "AMZN",
-      "direction": "short",
-      "conviction": 0.55,
-      "horizonDays": 30,
-      "rationale": "The Compound Curve expects AMZN to underperform over the next 30 days.",
-      "quote": "On AMZN -- I am trimming everything here, the risk is to the downside.",
-      "quoteStartSeconds": 480
-    }
-  ],
-  "vid00023": [
-    {
-      "symbol": "MSFT",
-      "direction": "long",
-      "conviction": 0.5,
-      "horizonDays": 30,
-      "rationale": "The Compound Curve argues MSFT is mispriced to the upside over the next 30 days.",
-      "quote": "On MSFT -- this one is going a lot higher over the next couple of months.",
-      "quoteStartSeconds": 614
-    },
-    {
-      "symbol": "AMZN",
-      "direction": "long",
-      "conviction": 0.88,
-      "horizonDays": 30,
-      "rationale": "The Compound Curve argues AMZN is mispriced to the upside over the next 30 days.",
-      "quote": "On AMZN -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 151
-    }
-  ],
-  "vid00024": [
-    {
-      "symbol": "META",
-      "direction": "short",
       "conviction": 0.81,
       "horizonDays": 90,
-      "rationale": "The Compound Curve expects META to underperform over the next 90 days.",
-      "quote": "On META -- I am trimming everything here, the risk is to the downside.",
+      "rationale": "The Compound Curve argues COIN is mispriced to the upside over the next 90 days.",
+      "quote": "On COIN -- I am adding here, this is the entry I have been waiting for.",
       "quoteStartSeconds": 837
     }
   ],
-  "vid00025": [
+  "vid00021": [
     {
       "symbol": "NVDA",
       "direction": "long",
@@ -319,18 +320,18 @@
       "quoteStartSeconds": 267
     }
   ],
-  "vid00026": [
+  "vid00022": [
     {
-      "symbol": "AMD",
+      "symbol": "COIN",
       "direction": "long",
       "conviction": 0.76,
       "horizonDays": 90,
-      "rationale": "The Compound Curve argues AMD is mispriced to the upside over the next 90 days.",
-      "quote": "On AMD -- the setup is clean and I am sizing up into it.",
+      "rationale": "The Compound Curve argues COIN is mispriced to the upside over the next 90 days.",
+      "quote": "On COIN -- the setup is clean and I am sizing up into it.",
       "quoteStartSeconds": 127
     }
   ],
-  "vid00027": [
+  "vid00023": [
     {
       "symbol": "AMZN",
       "direction": "long",
@@ -350,7 +351,7 @@
       "quoteStartSeconds": 177
     }
   ],
-  "vid00028": [
+  "vid00024": [
     {
       "symbol": "META",
       "direction": "long",
@@ -361,7 +362,7 @@
       "quoteStartSeconds": 230
     }
   ],
-  "vid00029": [
+  "vid00025": [
     {
       "symbol": "AAPL",
       "direction": "short",
@@ -381,7 +382,7 @@
       "quoteStartSeconds": 604
     }
   ],
-  "vid00030": [
+  "vid00026": [
     {
       "symbol": "MSFT",
       "direction": "long",
@@ -392,487 +393,478 @@
       "quoteStartSeconds": 593
     }
   ],
-  "vid00031": [
+  "vid00027": [
     {
-      "symbol": "AMZN",
+      "symbol": "META",
       "direction": "long",
-      "conviction": 0.78,
-      "horizonDays": 90,
-      "rationale": "Moonshot Mondays argues AMZN is mispriced to the upside over the next 90 days.",
-      "quote": "On AMZN -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 216
+      "conviction": 0.73,
+      "horizonDays": 30,
+      "rationale": "The Compound Curve argues META is mispriced to the upside over the next 30 days.",
+      "quote": "On META -- I am adding here, this is the entry I have been waiting for.",
+      "quoteStartSeconds": 243
     },
+    {
+      "symbol": "TSLA",
+      "direction": "long",
+      "conviction": 0.66,
+      "horizonDays": 30,
+      "rationale": "The Compound Curve argues TSLA is mispriced to the upside over the next 30 days.",
+      "quote": "On TSLA -- the setup is clean and I am sizing up into it.",
+      "quoteStartSeconds": 268
+    }
+  ],
+  "vid00028": [
+    {
+      "symbol": "MSFT",
+      "direction": "short",
+      "conviction": 0.41,
+      "horizonDays": 60,
+      "rationale": "The Compound Curve expects MSFT to underperform over the next 60 days.",
+      "quote": "On MSFT -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 496
+    }
+  ],
+  "vid00029": [
+    {
+      "symbol": "COIN",
+      "direction": "short",
+      "conviction": 0.71,
+      "horizonDays": 90,
+      "rationale": "The Compound Curve expects COIN to underperform over the next 90 days.",
+      "quote": "On COIN -- fading this move, the fundamentals do not support it.",
+      "quoteStartSeconds": 61
+    }
+  ],
+  "vid00030": [
+    {
+      "symbol": "TSLA",
+      "direction": "long",
+      "conviction": 0.69,
+      "horizonDays": 30,
+      "rationale": "The Compound Curve argues TSLA is mispriced to the upside over the next 30 days.",
+      "quote": "On TSLA -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 686
+    }
+  ],
+  "vid00031": [
     {
       "symbol": "COIN",
       "direction": "long",
-      "conviction": 0.43,
-      "horizonDays": 30,
-      "rationale": "Moonshot Mondays argues COIN is mispriced to the upside over the next 30 days.",
-      "quote": "On COIN -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 522
+      "conviction": 0.73,
+      "horizonDays": 60,
+      "rationale": "Moonshot Mondays argues COIN is mispriced to the upside over the next 60 days.",
+      "quote": "On COIN -- the setup is clean and I am sizing up into it.",
+      "quoteStartSeconds": 489
     }
   ],
   "vid00032": [
     {
       "symbol": "COIN",
-      "direction": "short",
-      "conviction": 0.65,
-      "horizonDays": 90,
-      "rationale": "Moonshot Mondays expects COIN to underperform over the next 90 days.",
-      "quote": "On COIN -- I am trimming everything here, the risk is to the downside.",
-      "quoteStartSeconds": 143
-    },
-    {
-      "symbol": "PLTR",
       "direction": "long",
-      "conviction": 0.5,
-      "horizonDays": 30,
-      "rationale": "Moonshot Mondays argues PLTR is mispriced to the upside over the next 30 days.",
-      "quote": "On PLTR -- this one is going a lot higher over the next couple of months.",
-      "quoteStartSeconds": 204
+      "conviction": 0.37,
+      "horizonDays": 90,
+      "rationale": "Moonshot Mondays argues COIN is mispriced to the upside over the next 90 days.",
+      "quote": "On COIN -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 887
     }
   ],
   "vid00033": [
     {
-      "symbol": "TSLA",
-      "direction": "short",
-      "conviction": 0.63,
-      "horizonDays": 30,
-      "rationale": "Moonshot Mondays expects TSLA to underperform over the next 30 days.",
-      "quote": "On TSLA -- taking profits and stepping aside on this name.",
-      "quoteStartSeconds": 741
-    },
-    {
       "symbol": "COIN",
-      "direction": "short",
-      "conviction": 0.69,
-      "horizonDays": 30,
-      "rationale": "Moonshot Mondays expects COIN to underperform over the next 30 days.",
-      "quote": "On COIN -- this rolls over from here, I would not touch it.",
-      "quoteStartSeconds": 686
+      "direction": "long",
+      "conviction": 0.36,
+      "horizonDays": 90,
+      "rationale": "Moonshot Mondays argues COIN is mispriced to the upside over the next 90 days.",
+      "quote": "On COIN -- the setup is clean and I am sizing up into it.",
+      "quoteStartSeconds": 290
     }
   ],
   "vid00034": [
     {
-      "symbol": "TSLA",
-      "direction": "long",
-      "conviction": 0.81,
+      "symbol": "PLTR",
+      "direction": "short",
+      "conviction": 0.92,
       "horizonDays": 30,
-      "rationale": "Moonshot Mondays argues TSLA is mispriced to the upside over the next 30 days.",
-      "quote": "On TSLA -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 522
+      "rationale": "Moonshot Mondays expects PLTR to underperform over the next 30 days.",
+      "quote": "On PLTR -- this rolls over from here, I would not touch it.",
+      "quoteStartSeconds": 433
+    },
+    {
+      "symbol": "TSLA",
+      "direction": "short",
+      "conviction": 0.36,
+      "horizonDays": 90,
+      "rationale": "Moonshot Mondays expects TSLA to underperform over the next 90 days.",
+      "quote": "On TSLA -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 864
     }
   ],
   "vid00035": [
     {
-      "symbol": "AMD",
-      "direction": "long",
-      "conviction": 0.81,
-      "horizonDays": 60,
-      "rationale": "Moonshot Mondays argues AMD is mispriced to the upside over the next 60 days.",
-      "quote": "On AMD -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 791
+      "symbol": "COIN",
+      "direction": "short",
+      "conviction": 0.5,
+      "horizonDays": 30,
+      "rationale": "Moonshot Mondays expects COIN to underperform over the next 30 days.",
+      "quote": "On COIN -- I am trimming everything here, the risk is to the downside.",
+      "quoteStartSeconds": 281
     }
   ],
   "vid00036": [
     {
-      "symbol": "TSLA",
+      "symbol": "PLTR",
       "direction": "long",
-      "conviction": 0.73,
-      "horizonDays": 30,
-      "rationale": "Moonshot Mondays argues TSLA is mispriced to the upside over the next 30 days.",
-      "quote": "On TSLA -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 668
+      "conviction": 0.36,
+      "horizonDays": 90,
+      "rationale": "Moonshot Mondays argues PLTR is mispriced to the upside over the next 90 days.",
+      "quote": "On PLTR -- the setup is clean and I am sizing up into it.",
+      "quoteStartSeconds": 939
     }
   ],
   "vid00037": [
     {
-      "symbol": "AMD",
-      "direction": "short",
-      "conviction": 0.7,
-      "horizonDays": 90,
-      "rationale": "Moonshot Mondays expects AMD to underperform over the next 90 days.",
-      "quote": "On AMD -- I am trimming everything here, the risk is to the downside.",
-      "quoteStartSeconds": 111
+      "symbol": "TSLA",
+      "direction": "long",
+      "conviction": 0.75,
+      "horizonDays": 30,
+      "rationale": "Moonshot Mondays argues TSLA is mispriced to the upside over the next 30 days.",
+      "quote": "On TSLA -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 681
     }
   ],
   "vid00038": [
     {
-      "symbol": "AMD",
+      "symbol": "PLTR",
       "direction": "short",
-      "conviction": 0.85,
-      "horizonDays": 60,
-      "rationale": "Moonshot Mondays expects AMD to underperform over the next 60 days.",
-      "quote": "On AMD -- taking profits and stepping aside on this name.",
-      "quoteStartSeconds": 350
+      "conviction": 0.48,
+      "horizonDays": 30,
+      "rationale": "Moonshot Mondays expects PLTR to underperform over the next 30 days.",
+      "quote": "On PLTR -- this rolls over from here, I would not touch it.",
+      "quoteStartSeconds": 90
     },
     {
       "symbol": "COIN",
       "direction": "long",
-      "conviction": 0.52,
-      "horizonDays": 90,
-      "rationale": "Moonshot Mondays argues COIN is mispriced to the upside over the next 90 days.",
-      "quote": "On COIN -- I am adding here, this is the entry I have been waiting for.",
-      "quoteStartSeconds": 488
+      "conviction": 0.46,
+      "horizonDays": 60,
+      "rationale": "Moonshot Mondays argues COIN is mispriced to the upside over the next 60 days.",
+      "quote": "On COIN -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 347
     }
   ],
   "vid00039": [
     {
-      "symbol": "NVDA",
+      "symbol": "TSLA",
       "direction": "long",
-      "conviction": 0.68,
+      "conviction": 0.71,
       "horizonDays": 90,
-      "rationale": "Moonshot Mondays argues NVDA is mispriced to the upside over the next 90 days.",
-      "quote": "On NVDA -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 775
+      "rationale": "Moonshot Mondays argues TSLA is mispriced to the upside over the next 90 days.",
+      "quote": "On TSLA -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 331
     }
   ],
   "vid00040": [
     {
-      "symbol": "COIN",
-      "direction": "short",
-      "conviction": 0.55,
-      "horizonDays": 60,
-      "rationale": "Moonshot Mondays expects COIN to underperform over the next 60 days.",
-      "quote": "On COIN -- taking profits and stepping aside on this name.",
-      "quoteStartSeconds": 658
+      "symbol": "PLTR",
+      "direction": "long",
+      "conviction": 0.89,
+      "horizonDays": 90,
+      "rationale": "Moonshot Mondays argues PLTR is mispriced to the upside over the next 90 days.",
+      "quote": "On PLTR -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 625
     }
   ],
   "vid00041": [
     {
       "symbol": "TSLA",
-      "direction": "short",
-      "conviction": 0.48,
-      "horizonDays": 30,
-      "rationale": "Moonshot Mondays expects TSLA to underperform over the next 30 days.",
-      "quote": "On TSLA -- this rolls over from here, I would not touch it.",
-      "quoteStartSeconds": 90
+      "direction": "long",
+      "conviction": 0.85,
+      "horizonDays": 60,
+      "rationale": "Moonshot Mondays argues TSLA is mispriced to the upside over the next 60 days.",
+      "quote": "On TSLA -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 199
     }
   ],
   "vid00042": [
     {
-      "symbol": "TSLA",
-      "direction": "long",
-      "conviction": 0.81,
-      "horizonDays": 60,
-      "rationale": "Moonshot Mondays argues TSLA is mispriced to the upside over the next 60 days.",
-      "quote": "On TSLA -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 128
+      "symbol": "COIN",
+      "direction": "short",
+      "conviction": 0.41,
+      "horizonDays": 90,
+      "rationale": "Moonshot Mondays expects COIN to underperform over the next 90 days.",
+      "quote": "On COIN -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 693
     },
     {
-      "symbol": "AMD",
+      "symbol": "TSLA",
       "direction": "long",
-      "conviction": 0.84,
+      "conviction": 0.63,
       "horizonDays": 90,
-      "rationale": "Moonshot Mondays argues AMD is mispriced to the upside over the next 90 days.",
-      "quote": "On AMD -- this one is going a lot higher over the next couple of months.",
-      "quoteStartSeconds": 813
+      "rationale": "Moonshot Mondays argues TSLA is mispriced to the upside over the next 90 days.",
+      "quote": "On TSLA -- I am adding here, this is the entry I have been waiting for.",
+      "quoteStartSeconds": 718
     }
   ],
   "vid00043": [
     {
       "symbol": "AMD",
-      "direction": "long",
-      "conviction": 0.55,
-      "horizonDays": 30,
-      "rationale": "Moonshot Mondays argues AMD is mispriced to the upside over the next 30 days.",
-      "quote": "On AMD -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 446
-    },
-    {
-      "symbol": "TSLA",
       "direction": "short",
-      "conviction": 0.54,
-      "horizonDays": 30,
-      "rationale": "Moonshot Mondays expects TSLA to underperform over the next 30 days.",
-      "quote": "On TSLA -- this rolls over from here, I would not touch it.",
-      "quoteStartSeconds": 646
+      "conviction": 0.44,
+      "horizonDays": 90,
+      "rationale": "Moonshot Mondays expects AMD to underperform over the next 90 days.",
+      "quote": "On AMD -- fading this move, the fundamentals do not support it.",
+      "quoteStartSeconds": 221
     }
   ],
   "vid00044": [
     {
-      "symbol": "AMD",
-      "direction": "short",
+      "symbol": "NVDA",
+      "direction": "long",
       "conviction": 0.8,
       "horizonDays": 30,
-      "rationale": "Moonshot Mondays expects AMD to underperform over the next 30 days.",
-      "quote": "On AMD -- taking profits and stepping aside on this name.",
-      "quoteStartSeconds": 350
+      "rationale": "Moonshot Mondays argues NVDA is mispriced to the upside over the next 30 days.",
+      "quote": "On NVDA -- the setup is clean and I am sizing up into it.",
+      "quoteStartSeconds": 394
+    },
+    {
+      "symbol": "PLTR",
+      "direction": "long",
+      "conviction": 0.85,
+      "horizonDays": 30,
+      "rationale": "Moonshot Mondays argues PLTR is mispriced to the upside over the next 30 days.",
+      "quote": "On PLTR -- the setup is clean and I am sizing up into it.",
+      "quoteStartSeconds": 715
     }
   ],
   "vid00045": [
     {
-      "symbol": "META",
+      "symbol": "PLTR",
       "direction": "short",
-      "conviction": 0.76,
-      "horizonDays": 90,
-      "rationale": "Moonshot Mondays expects META to underperform over the next 90 days.",
-      "quote": "On META -- I am trimming everything here, the risk is to the downside.",
-      "quoteStartSeconds": 482
+      "conviction": 0.81,
+      "horizonDays": 60,
+      "rationale": "Moonshot Mondays expects PLTR to underperform over the next 60 days.",
+      "quote": "On PLTR -- fading this move, the fundamentals do not support it.",
+      "quoteStartSeconds": 728
     }
   ],
   "vid00046": [
     {
       "symbol": "PLTR",
-      "direction": "short",
-      "conviction": 0.86,
-      "horizonDays": 90,
-      "rationale": "Moonshot Mondays expects PLTR to underperform over the next 90 days.",
-      "quote": "On PLTR -- I am trimming everything here, the risk is to the downside.",
-      "quoteStartSeconds": 734
+      "direction": "long",
+      "conviction": 0.88,
+      "horizonDays": 30,
+      "rationale": "Moonshot Mondays argues PLTR is mispriced to the upside over the next 30 days.",
+      "quote": "On PLTR -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 298
     }
   ],
   "vid00047": [
     {
-      "symbol": "INTC",
+      "symbol": "AMZN",
       "direction": "short",
       "conviction": 0.77,
-      "horizonDays": 60,
-      "rationale": "Basis Case expects INTC to underperform over the next 60 days.",
-      "quote": "On INTC -- this rolls over from here, I would not touch it.",
-      "quoteStartSeconds": 349
+      "horizonDays": 30,
+      "rationale": "Basis Case expects AMZN to underperform over the next 30 days.",
+      "quote": "On AMZN -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 739
     }
   ],
   "vid00048": [
     {
-      "symbol": "META",
+      "symbol": "TSLA",
       "direction": "short",
-      "conviction": 0.75,
-      "horizonDays": 90,
-      "rationale": "Basis Case expects META to underperform over the next 90 days.",
-      "quote": "On META -- I am trimming everything here, the risk is to the downside.",
-      "quoteStartSeconds": 770
+      "conviction": 0.92,
+      "horizonDays": 60,
+      "rationale": "Basis Case expects TSLA to underperform over the next 60 days.",
+      "quote": "On TSLA -- this rolls over from here, I would not touch it.",
+      "quoteStartSeconds": 200
+    },
+    {
+      "symbol": "GOOGL",
+      "direction": "short",
+      "conviction": 0.87,
+      "horizonDays": 30,
+      "rationale": "Basis Case expects GOOGL to underperform over the next 30 days.",
+      "quote": "On GOOGL -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 641
     }
   ],
   "vid00049": [
     {
-      "symbol": "NVDA",
-      "direction": "long",
-      "conviction": 0.63,
+      "symbol": "COIN",
+      "direction": "short",
+      "conviction": 0.46,
       "horizonDays": 90,
-      "rationale": "Basis Case argues NVDA is mispriced to the upside over the next 90 days.",
-      "quote": "On NVDA -- this one is going a lot higher over the next couple of months.",
-      "quoteStartSeconds": 170
-    },
-    {
-      "symbol": "AMD",
-      "direction": "long",
-      "conviction": 0.83,
-      "horizonDays": 60,
-      "rationale": "Basis Case argues AMD is mispriced to the upside over the next 60 days.",
-      "quote": "On AMD -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 585
+      "rationale": "Basis Case expects COIN to underperform over the next 90 days.",
+      "quote": "On COIN -- I am trimming everything here, the risk is to the downside.",
+      "quoteStartSeconds": 770
     }
   ],
   "vid00050": [
     {
-      "symbol": "NVDA",
+      "symbol": "TSLA",
       "direction": "short",
-      "conviction": 0.66,
-      "horizonDays": 90,
-      "rationale": "Basis Case expects NVDA to underperform over the next 90 days.",
-      "quote": "On NVDA -- taking profits and stepping aside on this name.",
-      "quoteStartSeconds": 376
+      "conviction": 0.51,
+      "horizonDays": 30,
+      "rationale": "Basis Case expects TSLA to underperform over the next 30 days.",
+      "quote": "On TSLA -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 443
     }
   ],
   "vid00051": [
     {
-      "symbol": "COIN",
+      "symbol": "TSLA",
       "direction": "short",
-      "conviction": 0.58,
+      "conviction": 0.37,
       "horizonDays": 60,
-      "rationale": "Basis Case expects COIN to underperform over the next 60 days.",
-      "quote": "On COIN -- I am trimming everything here, the risk is to the downside.",
-      "quoteStartSeconds": 787
+      "rationale": "Basis Case expects TSLA to underperform over the next 60 days.",
+      "quote": "On TSLA -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 879
     }
   ],
   "vid00052": [
     {
-      "symbol": "GOOGL",
+      "symbol": "META",
       "direction": "short",
-      "conviction": 0.57,
-      "horizonDays": 90,
-      "rationale": "Basis Case expects GOOGL to underperform over the next 90 days.",
-      "quote": "On GOOGL -- this rolls over from here, I would not touch it.",
-      "quoteStartSeconds": 72
-    }
-  ],
-  "vid00053": [
-    {
-      "symbol": "AMZN",
-      "direction": "long",
-      "conviction": 0.82,
-      "horizonDays": 30,
-      "rationale": "Basis Case argues AMZN is mispriced to the upside over the next 30 days.",
-      "quote": "On AMZN -- I am adding here, this is the entry I have been waiting for.",
-      "quoteStartSeconds": 647
+      "conviction": 0.76,
+      "horizonDays": 60,
+      "rationale": "Basis Case expects META to underperform over the next 60 days.",
+      "quote": "On META -- fading this move, the fundamentals do not support it.",
+      "quoteStartSeconds": 303
     },
     {
       "symbol": "NVDA",
       "direction": "short",
-      "conviction": 0.51,
-      "horizonDays": 90,
-      "rationale": "Basis Case expects NVDA to underperform over the next 90 days.",
-      "quote": "On NVDA -- this rolls over from here, I would not touch it.",
-      "quoteStartSeconds": 303
+      "conviction": 0.63,
+      "horizonDays": 30,
+      "rationale": "Basis Case expects NVDA to underperform over the next 30 days.",
+      "quote": "On NVDA -- fading this move, the fundamentals do not support it.",
+      "quoteStartSeconds": 612
+    }
+  ],
+  "vid00053": [
+    {
+      "symbol": "META",
+      "direction": "long",
+      "conviction": 0.69,
+      "horizonDays": 60,
+      "rationale": "Basis Case argues META is mispriced to the upside over the next 60 days.",
+      "quote": "On META -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 638
+    },
+    {
+      "symbol": "INTC",
+      "direction": "short",
+      "conviction": 0.5,
+      "horizonDays": 60,
+      "rationale": "Basis Case expects INTC to underperform over the next 60 days.",
+      "quote": "On INTC -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 258
     }
   ],
   "vid00054": [
     {
       "symbol": "META",
       "direction": "short",
-      "conviction": 0.59,
-      "horizonDays": 90,
-      "rationale": "Basis Case expects META to underperform over the next 90 days.",
-      "quote": "On META -- fading this move, the fundamentals do not support it.",
-      "quoteStartSeconds": 391
-    }
-  ],
-  "vid00055": [
-    {
-      "symbol": "META",
-      "direction": "long",
-      "conviction": 0.38,
-      "horizonDays": 90,
-      "rationale": "Basis Case argues META is mispriced to the upside over the next 90 days.",
-      "quote": "On META -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 337
-    },
-    {
-      "symbol": "TSLA",
-      "direction": "short",
-      "conviction": 0.39,
-      "horizonDays": 90,
-      "rationale": "Basis Case expects TSLA to underperform over the next 90 days.",
-      "quote": "On TSLA -- I am trimming everything here, the risk is to the downside.",
-      "quoteStartSeconds": 549
-    }
-  ],
-  "vid00056": [
-    {
-      "symbol": "META",
-      "direction": "long",
-      "conviction": 0.39,
-      "horizonDays": 90,
-      "rationale": "Basis Case argues META is mispriced to the upside over the next 90 days.",
-      "quote": "On META -- this one is going a lot higher over the next couple of months.",
-      "quoteStartSeconds": 189
-    },
-    {
-      "symbol": "INTC",
-      "direction": "long",
-      "conviction": 0.63,
-      "horizonDays": 60,
-      "rationale": "Basis Case argues INTC is mispriced to the upside over the next 60 days.",
-      "quote": "On INTC -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 792
-    }
-  ],
-  "vid00057": [
-    {
-      "symbol": "NVDA",
-      "direction": "long",
-      "conviction": 0.43,
-      "horizonDays": 60,
-      "rationale": "Basis Case argues NVDA is mispriced to the upside over the next 60 days.",
-      "quote": "On NVDA -- this one is going a lot higher over the next couple of months.",
-      "quoteStartSeconds": 799
-    }
-  ],
-  "vid00058": [
-    {
-      "symbol": "META",
-      "direction": "short",
-      "conviction": 0.46,
-      "horizonDays": 90,
-      "rationale": "Basis Case expects META to underperform over the next 90 days.",
-      "quote": "On META -- this rolls over from here, I would not touch it.",
-      "quoteStartSeconds": 692
-    },
-    {
-      "symbol": "NVDA",
-      "direction": "short",
-      "conviction": 0.7,
-      "horizonDays": 90,
-      "rationale": "Basis Case expects NVDA to underperform over the next 90 days.",
-      "quote": "On NVDA -- fading this move, the fundamentals do not support it.",
-      "quoteStartSeconds": 321
-    }
-  ],
-  "vid00059": [
-    {
-      "symbol": "NVDA",
-      "direction": "short",
-      "conviction": 0.81,
-      "horizonDays": 90,
-      "rationale": "Basis Case expects NVDA to underperform over the next 90 days.",
-      "quote": "On NVDA -- taking profits and stepping aside on this name.",
-      "quoteStartSeconds": 122
-    }
-  ],
-  "vid00060": [
-    {
-      "symbol": "AMD",
-      "direction": "short",
-      "conviction": 0.51,
+      "conviction": 0.84,
       "horizonDays": 30,
-      "rationale": "Charts & Vibes expects AMD to underperform over the next 30 days.",
-      "quote": "On AMD -- this rolls over from here, I would not touch it.",
-      "quoteStartSeconds": 475
-    },
-    {
-      "symbol": "PLTR",
-      "direction": "short",
-      "conviction": 0.54,
-      "horizonDays": 30,
-      "rationale": "Charts & Vibes expects PLTR to underperform over the next 30 days.",
-      "quote": "On PLTR -- I am trimming everything here, the risk is to the downside.",
-      "quoteStartSeconds": 436
-    }
-  ],
-  "vid00061": [
-    {
-      "symbol": "NVDA",
-      "direction": "short",
-      "conviction": 0.83,
-      "horizonDays": 60,
-      "rationale": "Charts & Vibes expects NVDA to underperform over the next 60 days.",
-      "quote": "On NVDA -- this rolls over from here, I would not touch it.",
-      "quoteStartSeconds": 581
-    }
-  ],
-  "vid00062": [
-    {
-      "symbol": "NVDA",
-      "direction": "long",
-      "conviction": 0.57,
-      "horizonDays": 90,
-      "rationale": "Charts & Vibes argues NVDA is mispriced to the upside over the next 90 days.",
-      "quote": "On NVDA -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 247
-    }
-  ],
-  "vid00063": [
-    {
-      "symbol": "NVDA",
-      "direction": "long",
-      "conviction": 0.53,
-      "horizonDays": 30,
-      "rationale": "Charts & Vibes argues NVDA is mispriced to the upside over the next 30 days.",
-      "quote": "On NVDA -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 632
+      "rationale": "Basis Case expects META to underperform over the next 30 days.",
+      "quote": "On META -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 246
     },
     {
       "symbol": "COIN",
       "direction": "long",
-      "conviction": 0.89,
-      "horizonDays": 60,
-      "rationale": "Charts & Vibes argues COIN is mispriced to the upside over the next 60 days.",
-      "quote": "On COIN -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 139
+      "conviction": 0.39,
+      "horizonDays": 30,
+      "rationale": "Basis Case argues COIN is mispriced to the upside over the next 30 days.",
+      "quote": "On COIN -- I am adding here, this is the entry I have been waiting for.",
+      "quoteStartSeconds": 466
     }
   ],
-  "vid00064": [
+  "vid00055": [
+    {
+      "symbol": "AMZN",
+      "direction": "long",
+      "conviction": 0.52,
+      "horizonDays": 60,
+      "rationale": "Basis Case argues AMZN is mispriced to the upside over the next 60 days.",
+      "quote": "On AMZN -- I am adding here, this is the entry I have been waiting for.",
+      "quoteStartSeconds": 706
+    }
+  ],
+  "vid00056": [
+    {
+      "symbol": "COIN",
+      "direction": "short",
+      "conviction": 0.93,
+      "horizonDays": 30,
+      "rationale": "Basis Case expects COIN to underperform over the next 30 days.",
+      "quote": "On COIN -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 885
+    },
+    {
+      "symbol": "TSLA",
+      "direction": "long",
+      "conviction": 0.5,
+      "horizonDays": 90,
+      "rationale": "Basis Case argues TSLA is mispriced to the upside over the next 90 days.",
+      "quote": "On TSLA -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 272
+    }
+  ],
+  "vid00057": [
+    {
+      "symbol": "INTC",
+      "direction": "long",
+      "conviction": 0.9,
+      "horizonDays": 30,
+      "rationale": "Basis Case argues INTC is mispriced to the upside over the next 30 days.",
+      "quote": "On INTC -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 247
+    }
+  ],
+  "vid00058": [
+    {
+      "symbol": "AMZN",
+      "direction": "short",
+      "conviction": 0.55,
+      "horizonDays": 30,
+      "rationale": "Basis Case expects AMZN to underperform over the next 30 days.",
+      "quote": "On AMZN -- I am trimming everything here, the risk is to the downside.",
+      "quoteStartSeconds": 151
+    },
+    {
+      "symbol": "NVDA",
+      "direction": "short",
+      "conviction": 0.37,
+      "horizonDays": 30,
+      "rationale": "Basis Case expects NVDA to underperform over the next 30 days.",
+      "quote": "On NVDA -- this rolls over from here, I would not touch it.",
+      "quoteStartSeconds": 678
+    }
+  ],
+  "vid00059": [
+    {
+      "symbol": "COIN",
+      "direction": "long",
+      "conviction": 0.62,
+      "horizonDays": 30,
+      "rationale": "Basis Case argues COIN is mispriced to the upside over the next 30 days.",
+      "quote": "On COIN -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 689
+    },
+    {
+      "symbol": "TSLA",
+      "direction": "short",
+      "conviction": 0.55,
+      "horizonDays": 60,
+      "rationale": "Basis Case expects TSLA to underperform over the next 60 days.",
+      "quote": "On TSLA -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 810
+    }
+  ],
+  "vid00060": [
     {
       "symbol": "COIN",
       "direction": "short",
@@ -883,78 +875,76 @@
       "quoteStartSeconds": 679
     },
     {
-      "symbol": "TSLA",
-      "direction": "long",
-      "conviction": 0.72,
+      "symbol": "NVDA",
+      "direction": "short",
+      "conviction": 0.66,
       "horizonDays": 30,
-      "rationale": "Charts & Vibes argues TSLA is mispriced to the upside over the next 30 days.",
-      "quote": "On TSLA -- the setup is clean and I am sizing up into it.",
-      "quoteStartSeconds": 942
+      "rationale": "Charts & Vibes expects NVDA to underperform over the next 30 days.",
+      "quote": "On NVDA -- taking profits and stepping aside on this name.",
+      "quoteStartSeconds": 95
     }
   ],
-  "vid00065": [
-    {
-      "symbol": "TSLA",
-      "direction": "long",
-      "conviction": 0.65,
-      "horizonDays": 60,
-      "rationale": "Charts & Vibes argues TSLA is mispriced to the upside over the next 60 days.",
-      "quote": "On TSLA -- this one is going a lot higher over the next couple of months.",
-      "quoteStartSeconds": 530
-    }
-  ],
-  "vid00066": [
-    {
-      "symbol": "AMZN",
-      "direction": "long",
-      "conviction": 0.58,
-      "horizonDays": 30,
-      "rationale": "Charts & Vibes argues AMZN is mispriced to the upside over the next 30 days.",
-      "quote": "On AMZN -- this one is going a lot higher over the next couple of months.",
-      "quoteStartSeconds": 809
-    },
+  "vid00061": [
     {
       "symbol": "TSLA",
       "direction": "short",
-      "conviction": 0.58,
-      "horizonDays": 30,
-      "rationale": "Charts & Vibes expects TSLA to underperform over the next 30 days.",
-      "quote": "On TSLA -- taking profits and stepping aside on this name.",
-      "quoteStartSeconds": 119
+      "conviction": 0.54,
+      "horizonDays": 60,
+      "rationale": "Charts & Vibes expects TSLA to underperform over the next 60 days.",
+      "quote": "On TSLA -- fading this move, the fundamentals do not support it.",
+      "quoteStartSeconds": 840
     }
   ],
-  "vid00067": [
+  "vid00062": [
     {
-      "symbol": "COIN",
+      "symbol": "NVDA",
       "direction": "long",
-      "conviction": 0.67,
-      "horizonDays": 30,
-      "rationale": "Charts & Vibes argues COIN is mispriced to the upside over the next 30 days.",
-      "quote": "On COIN -- I am adding here, this is the entry I have been waiting for.",
-      "quoteStartSeconds": 136
+      "conviction": 0.52,
+      "horizonDays": 90,
+      "rationale": "Charts & Vibes argues NVDA is mispriced to the upside over the next 90 days.",
+      "quote": "On NVDA -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 190
     },
+    {
+      "symbol": "TSLA",
+      "direction": "long",
+      "conviction": 0.94,
+      "horizonDays": 60,
+      "rationale": "Charts & Vibes argues TSLA is mispriced to the upside over the next 60 days.",
+      "quote": "On TSLA -- I am adding here, this is the entry I have been waiting for.",
+      "quoteStartSeconds": 484
+    }
+  ],
+  "vid00063": [
     {
       "symbol": "AMD",
-      "direction": "short",
-      "conviction": 0.44,
-      "horizonDays": 90,
-      "rationale": "Charts & Vibes expects AMD to underperform over the next 90 days.",
-      "quote": "On AMD -- fading this move, the fundamentals do not support it.",
-      "quoteStartSeconds": 722
-    }
-  ],
-  "vid00068": [
-    {
-      "symbol": "TSLA",
       "direction": "long",
-      "conviction": 0.91,
+      "conviction": 0.35,
+      "horizonDays": 30,
+      "rationale": "Charts & Vibes argues AMD is mispriced to the upside over the next 30 days.",
+      "quote": "On AMD -- I am adding here, this is the entry I have been waiting for.",
+      "quoteStartSeconds": 151
+    },
+    {
+      "symbol": "COIN",
+      "direction": "short",
+      "conviction": 0.69,
       "horizonDays": 60,
-      "rationale": "Charts & Vibes argues TSLA is mispriced to the upside over the next 60 days.",
-      "quote": "On TSLA -- accumulating on any weakness, the thesis has not changed.",
-      "quoteStartSeconds": 239
+      "rationale": "Charts & Vibes expects COIN to underperform over the next 60 days.",
+      "quote": "On COIN -- fading this move, the fundamentals do not support it.",
+      "quoteStartSeconds": 883
     }
   ],
-  "vid00069": [
+  "vid00064": [
+    {
+      "symbol": "COIN",
+      "direction": "short",
+      "conviction": 0.47,
+      "horizonDays": 90,
+      "rationale": "Charts & Vibes expects COIN to underperform over the next 90 days.",
+      "quote": "On COIN -- fading this move, the fundamentals do not support it.",
+      "quoteStartSeconds": 75
+    },
     {
       "symbol": "AAPL",
       "direction": "short",
@@ -965,7 +955,7 @@
       "quoteStartSeconds": 365
     }
   ],
-  "vid00070": [
+  "vid00065": [
     {
       "symbol": "AAPL",
       "direction": "long",
@@ -976,14 +966,14 @@
       "quoteStartSeconds": 366
     }
   ],
-  "vid00071": [
+  "vid00066": [
     {
-      "symbol": "AMD",
+      "symbol": "TSLA",
       "direction": "short",
       "conviction": 0.87,
       "horizonDays": 60,
-      "rationale": "Charts & Vibes expects AMD to underperform over the next 60 days.",
-      "quote": "On AMD -- taking profits and stepping aside on this name.",
+      "rationale": "Charts & Vibes expects TSLA to underperform over the next 60 days.",
+      "quote": "On TSLA -- taking profits and stepping aside on this name.",
       "quoteStartSeconds": 515
     },
     {
@@ -996,14 +986,14 @@
       "quoteStartSeconds": 700
     }
   ],
-  "vid00072": [
+  "vid00067": [
     {
       "symbol": "GOOGL",
-      "direction": "long",
+      "direction": "short",
       "conviction": 0.45,
       "horizonDays": 30,
-      "rationale": "Charts & Vibes argues GOOGL is mispriced to the upside over the next 30 days.",
-      "quote": "On GOOGL -- the setup is clean and I am sizing up into it.",
+      "rationale": "Charts & Vibes expects GOOGL to underperform over the next 30 days.",
+      "quote": "On GOOGL -- fading this move, the fundamentals do not support it.",
       "quoteStartSeconds": 404
     },
     {
@@ -1016,7 +1006,7 @@
       "quoteStartSeconds": 949
     }
   ],
-  "vid00073": [
+  "vid00068": [
     {
       "symbol": "NVDA",
       "direction": "long",
@@ -1027,14 +1017,14 @@
       "quoteStartSeconds": 205
     }
   ],
-  "vid00074": [
+  "vid00069": [
     {
-      "symbol": "PLTR",
+      "symbol": "TSLA",
       "direction": "short",
       "conviction": 0.57,
       "horizonDays": 90,
-      "rationale": "Charts & Vibes expects PLTR to underperform over the next 90 days.",
-      "quote": "On PLTR -- taking profits and stepping aside on this name.",
+      "rationale": "Charts & Vibes expects TSLA to underperform over the next 90 days.",
+      "quote": "On TSLA -- taking profits and stepping aside on this name.",
       "quoteStartSeconds": 516
     },
     {
@@ -1047,34 +1037,34 @@
       "quoteStartSeconds": 71
     }
   ],
-  "vid00075": [
+  "vid00070": [
     {
-      "symbol": "PLTR",
-      "direction": "long",
+      "symbol": "AMD",
+      "direction": "short",
       "conviction": 0.81,
       "horizonDays": 60,
-      "rationale": "The Real Alpha Desk argues PLTR is mispriced to the upside over the next 60 days.",
-      "quote": "On PLTR -- I am adding here, this is the entry I have been waiting for.",
+      "rationale": "Charts & Vibes expects AMD to underperform over the next 60 days.",
+      "quote": "On AMD -- I am trimming everything here, the risk is to the downside.",
       "quoteStartSeconds": 424
     },
     {
-      "symbol": "COIN",
+      "symbol": "NVDA",
       "direction": "long",
       "conviction": 0.59,
       "horizonDays": 60,
-      "rationale": "The Real Alpha Desk argues COIN is mispriced to the upside over the next 60 days.",
-      "quote": "On COIN -- I am adding here, this is the entry I have been waiting for.",
+      "rationale": "Charts & Vibes argues NVDA is mispriced to the upside over the next 60 days.",
+      "quote": "On NVDA -- I am adding here, this is the entry I have been waiting for.",
       "quoteStartSeconds": 347
     }
   ],
-  "vid00076": [
+  "vid00071": [
     {
-      "symbol": "TSLA",
-      "direction": "long",
+      "symbol": "COIN",
+      "direction": "short",
       "conviction": 0.61,
       "horizonDays": 30,
-      "rationale": "The Real Alpha Desk argues TSLA is mispriced to the upside over the next 30 days.",
-      "quote": "On TSLA -- the setup is clean and I am sizing up into it.",
+      "rationale": "Charts & Vibes expects COIN to underperform over the next 30 days.",
+      "quote": "On COIN -- fading this move, the fundamentals do not support it.",
       "quoteStartSeconds": 84
     },
     {
@@ -1082,54 +1072,54 @@
       "direction": "long",
       "conviction": 0.4,
       "horizonDays": 60,
-      "rationale": "The Real Alpha Desk argues PLTR is mispriced to the upside over the next 60 days.",
+      "rationale": "Charts & Vibes argues PLTR is mispriced to the upside over the next 60 days.",
       "quote": "On PLTR -- accumulating on any weakness, the thesis has not changed.",
       "quoteStartSeconds": 469
     }
   ],
-  "vid00077": [
+  "vid00072": [
     {
-      "symbol": "INTC",
-      "direction": "short",
+      "symbol": "TSLA",
+      "direction": "long",
       "conviction": 0.76,
       "horizonDays": 30,
-      "rationale": "The Real Alpha Desk expects INTC to underperform over the next 30 days.",
-      "quote": "On INTC -- I am trimming everything here, the risk is to the downside.",
+      "rationale": "Charts & Vibes argues TSLA is mispriced to the upside over the next 30 days.",
+      "quote": "On TSLA -- I am adding here, this is the entry I have been waiting for.",
       "quoteStartSeconds": 76
     }
   ],
-  "vid00078": [
+  "vid00073": [
     {
       "symbol": "COIN",
       "direction": "long",
       "conviction": 0.62,
       "horizonDays": 60,
-      "rationale": "The Real Alpha Desk argues COIN is mispriced to the upside over the next 60 days.",
+      "rationale": "Charts & Vibes argues COIN is mispriced to the upside over the next 60 days.",
       "quote": "On COIN -- accumulating on any weakness, the thesis has not changed.",
       "quoteStartSeconds": 461
     }
   ],
-  "vid00079": [
+  "vid00074": [
     {
       "symbol": "GOOGL",
       "direction": "short",
       "conviction": 0.82,
       "horizonDays": 60,
-      "rationale": "The Real Alpha Desk expects GOOGL to underperform over the next 60 days.",
+      "rationale": "Charts & Vibes expects GOOGL to underperform over the next 60 days.",
       "quote": "On GOOGL -- this rolls over from here, I would not touch it.",
       "quoteStartSeconds": 200
     },
     {
-      "symbol": "COIN",
+      "symbol": "NVDA",
       "direction": "short",
       "conviction": 0.35,
       "horizonDays": 30,
-      "rationale": "The Real Alpha Desk expects COIN to underperform over the next 30 days.",
-      "quote": "On COIN -- this rolls over from here, I would not touch it.",
+      "rationale": "Charts & Vibes expects NVDA to underperform over the next 30 days.",
+      "quote": "On NVDA -- this rolls over from here, I would not touch it.",
       "quoteStartSeconds": 79
     }
   ],
-  "vid00080": [
+  "vid00075": [
     {
       "symbol": "INTC",
       "direction": "long",
@@ -1140,7 +1130,7 @@
       "quoteStartSeconds": 164
     }
   ],
-  "vid00081": [
+  "vid00076": [
     {
       "symbol": "TSLA",
       "direction": "long",
@@ -1160,7 +1150,7 @@
       "quoteStartSeconds": 785
     }
   ],
-  "vid00082": [
+  "vid00077": [
     {
       "symbol": "PLTR",
       "direction": "long",
@@ -1171,14 +1161,14 @@
       "quoteStartSeconds": 849
     }
   ],
-  "vid00083": [
+  "vid00078": [
     {
-      "symbol": "TSLA",
+      "symbol": "NVDA",
       "direction": "short",
       "conviction": 0.5,
       "horizonDays": 90,
-      "rationale": "The Real Alpha Desk expects TSLA to underperform over the next 90 days.",
-      "quote": "On TSLA -- taking profits and stepping aside on this name.",
+      "rationale": "The Real Alpha Desk expects NVDA to underperform over the next 90 days.",
+      "quote": "On NVDA -- taking profits and stepping aside on this name.",
       "quoteStartSeconds": 391
     },
     {
@@ -1191,7 +1181,7 @@
       "quoteStartSeconds": 221
     }
   ],
-  "vid00084": [
+  "vid00079": [
     {
       "symbol": "PLTR",
       "direction": "long",
@@ -1202,7 +1192,7 @@
       "quoteStartSeconds": 399
     }
   ],
-  "vid00085": [
+  "vid00080": [
     {
       "symbol": "AMZN",
       "direction": "short",
@@ -1222,7 +1212,7 @@
       "quoteStartSeconds": 157
     }
   ],
-  "vid00086": [
+  "vid00081": [
     {
       "symbol": "TSLA",
       "direction": "long",
@@ -1233,7 +1223,7 @@
       "quoteStartSeconds": 648
     }
   ],
-  "vid00087": [
+  "vid00082": [
     {
       "symbol": "AAPL",
       "direction": "short",
@@ -1244,7 +1234,7 @@
       "quoteStartSeconds": 802
     }
   ],
-  "vid00088": [
+  "vid00083": [
     {
       "symbol": "COIN",
       "direction": "long",
@@ -1253,6 +1243,88 @@
       "rationale": "The Real Alpha Desk argues COIN is mispriced to the upside over the next 60 days.",
       "quote": "On COIN -- accumulating on any weakness, the thesis has not changed.",
       "quoteStartSeconds": 444
+    }
+  ],
+  "vid00084": [
+    {
+      "symbol": "PLTR",
+      "direction": "short",
+      "conviction": 0.87,
+      "horizonDays": 90,
+      "rationale": "The Real Alpha Desk expects PLTR to underperform over the next 90 days.",
+      "quote": "On PLTR -- I am trimming everything here, the risk is to the downside.",
+      "quoteStartSeconds": 751
+    },
+    {
+      "symbol": "AMD",
+      "direction": "long",
+      "conviction": 0.43,
+      "horizonDays": 60,
+      "rationale": "The Real Alpha Desk argues AMD is mispriced to the upside over the next 60 days.",
+      "quote": "On AMD -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 690
+    }
+  ],
+  "vid00085": [
+    {
+      "symbol": "COIN",
+      "direction": "short",
+      "conviction": 0.83,
+      "horizonDays": 60,
+      "rationale": "The Real Alpha Desk expects COIN to underperform over the next 60 days.",
+      "quote": "On COIN -- this rolls over from here, I would not touch it.",
+      "quoteStartSeconds": 526
+    }
+  ],
+  "vid00086": [
+    {
+      "symbol": "INTC",
+      "direction": "long",
+      "conviction": 0.55,
+      "horizonDays": 90,
+      "rationale": "The Real Alpha Desk argues INTC is mispriced to the upside over the next 90 days.",
+      "quote": "On INTC -- this one is going a lot higher over the next couple of months.",
+      "quoteStartSeconds": 785
+    }
+  ],
+  "vid00087": [
+    {
+      "symbol": "TSLA",
+      "direction": "long",
+      "conviction": 0.46,
+      "horizonDays": 30,
+      "rationale": "The Real Alpha Desk argues TSLA is mispriced to the upside over the next 30 days.",
+      "quote": "On TSLA -- accumulating on any weakness, the thesis has not changed.",
+      "quoteStartSeconds": 709
+    },
+    {
+      "symbol": "PLTR",
+      "direction": "short",
+      "conviction": 0.66,
+      "horizonDays": 30,
+      "rationale": "The Real Alpha Desk expects PLTR to underperform over the next 30 days.",
+      "quote": "On PLTR -- this rolls over from here, I would not touch it.",
+      "quoteStartSeconds": 256
+    }
+  ],
+  "vid00088": [
+    {
+      "symbol": "NVDA",
+      "direction": "short",
+      "conviction": 0.9,
+      "horizonDays": 60,
+      "rationale": "The Real Alpha Desk expects NVDA to underperform over the next 60 days.",
+      "quote": "On NVDA -- I am trimming everything here, the risk is to the downside.",
+      "quoteStartSeconds": 702
+    },
+    {
+      "symbol": "AMZN",
+      "direction": "short",
+      "conviction": 0.8,
+      "horizonDays": 60,
+      "rationale": "The Real Alpha Desk expects AMZN to underperform over the next 60 days.",
+      "quote": "On AMZN -- fading this move, the fundamentals do not support it.",
+      "quoteStartSeconds": 186
     }
   ]
 }
