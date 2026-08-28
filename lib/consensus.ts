@@ -58,9 +58,10 @@ export function dedupeByChannel(stances: Stance[]): Stance[] {
  * 2. contested    -- at least 2 channels on each side
  * 3. mixed        -- everything else, including thin coverage
  *
- * Corroborated is checked first deliberately. Four channels bullish against
- * two bearish is broad agreement with dissenters, not a genuine split, and the
- * 0.6 threshold means anything labelled contested really is close to even.
+ * A score of 0.6 means 80% of channels are on one side, so the two rules only
+ * ever collide when the split is very lopsided but still has two dissenters,
+ * as in 8 bullish against 2 bearish. Corroborated wins there, because that
+ * really is agreement. Anything closer than 4:1 stays contested.
  */
 export function classify(
   bulls: number,
