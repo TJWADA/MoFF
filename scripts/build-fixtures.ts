@@ -30,6 +30,9 @@ const SYMBOLS = [
   "AMZN",
 ];
 
+/** Names everyone covers at once, so recent calls overlap and can disagree. */
+const HOT = ["NVDA", "TSLA", "PLTR", "COIN", "META", "AMD"];
+
 type Persona = {
   id: string;
   handle: string;
@@ -48,7 +51,7 @@ const PERSONAS: Persona[] = [
     name: "Ticker Tantrum",
     blurb: "Daily market reactions, heavy on megacap tech.",
     skill: 0.66,
-    videoCount: 9,
+    videoCount: 16,
     favourites: ["NVDA", "MSFT", "GOOGL", "AAPL"],
   },
   {
@@ -57,7 +60,7 @@ const PERSONAS: Persona[] = [
     name: "The Compound Curve",
     blurb: "Slow, boring, valuation-first analysis.",
     skill: 0.63,
-    videoCount: 8,
+    videoCount: 14,
     favourites: ["AAPL", "MSFT", "AMZN", "META"],
   },
   {
@@ -66,7 +69,7 @@ const PERSONAS: Persona[] = [
     name: "Moonshot Mondays",
     blurb: "High conviction, high volatility, low survival rate.",
     skill: 0.36,
-    videoCount: 9,
+    videoCount: 16,
     favourites: ["PLTR", "COIN", "TSLA", "AMD"],
   },
   {
@@ -75,8 +78,8 @@ const PERSONAS: Persona[] = [
     name: "Basis Case",
     blurb: "Macro framing with occasional single-name calls.",
     skill: 0.52,
-    videoCount: 7,
-    favourites: ["SPY", "META", "INTC", "NVDA"],
+    videoCount: 13,
+    favourites: ["META", "INTC", "NVDA", "AMZN"],
   },
   {
     id: "UC0000000000000000000005",
@@ -84,7 +87,7 @@ const PERSONAS: Persona[] = [
     name: "Charts & Vibes",
     blurb: "Technical setups, drawn live, mixed results.",
     skill: 0.48,
-    videoCount: 8,
+    videoCount: 15,
     favourites: ["TSLA", "AMD", "COIN", "NVDA"],
   },
   {
@@ -93,7 +96,7 @@ const PERSONAS: Persona[] = [
     name: "The Real Alpha Desk",
     blurb: "Confident, loud, frequently wrong.",
     skill: 0.34,
-    videoCount: 8,
+    videoCount: 14,
     favourites: ["INTC", "PLTR", "TSLA", "COIN"],
   },
 ];
@@ -228,8 +231,12 @@ function main() {
     let videoSeq = 0;
     for (const p of PERSONAS) {
       for (let v = 0; v < p.videoCount; v++) {
-        // Spread videos over the last ~14 months.
-        const daysAgo = Math.floor(20 + rand() * 400);
+        // Weight towards the recent past so the consensus view has live calls
+        // to aggregate, while still leaving a long resolved history to score.
+        const recent = rand() < 0.45;
+        const daysAgo = recent
+          ? Math.floor(3 + rand() * 82)
+          : Math.floor(95 + rand() * 400);
         const published = new Date(TODAY);
         published.setUTCDate(published.getUTCDate() - daysAgo);
         const pubDate = iso(published);
@@ -240,8 +247,10 @@ function main() {
         const calls: (typeof callsByVideo)[string] = [];
 
         for (let c = 0; c < nCalls; c++) {
-          const symbol =
-            rand() < 0.7 ? pick(p.favourites) : pick(SYMBOLS.slice(1));
+          // Recent videos converge on a handful of widely covered names, which
+          // is what produces genuine agreement and disagreement to display.
+          const pool = recent && rand() < 0.75 ? HOT : p.favourites;
+          const symbol = rand() < 0.8 ? pick(pool) : pick(SYMBOLS.slice(1));
           if (used.has(symbol)) continue;
           used.add(symbol);
 

@@ -1,7 +1,14 @@
 import { eq, isNull, notInArray, sql } from "drizzle-orm";
 import { db } from "./db";
-import { calls, channels, transcripts, videos } from "./db/schema";
+import { bars, calls, channels, transcripts, videos } from "./db/schema";
 import { extractCalls, PROMPT_VERSION } from "./extract";
+import { fetchBars } from "./prices";
+import {
+  BENCHMARK,
+  resolveCall,
+  type Session,
+  toDate,
+} from "./scoring";
 import { fetchTranscript } from "./transcripts";
 import { discoverVideos, isShort } from "./youtube";
 import { MODE } from "./env";
@@ -94,12 +101,93 @@ async function extract(): Promise<string> {
   return `${produced} call(s) from ${pending.length} transcript(s)`;
 }
 
+async function prices(): Promise<string> {
+  const symbols = new Set<string>([BENCHMARK]);
+  for (const row of await db.selectDistinct({ symbol: calls.symbol }).from(calls)) {
+    symbols.add(row.symbol);
+  }
+  if (symbols.size <= 1) return "no calls to price yet";
+
+  const [earliest] = await db
+    .select({ at: sql<number>`min(${videos.publishedAt})` })
+    .from(videos);
+  if (!earliest?.at) return "no videos";
+
+  // A few days of slack before the first video so an entry session exists.
+  const start = toDate(earliest.at - 7 * 86_400_000);
+  const end = toDate(Date.now());
+
+  const rows = await fetchBars([...symbols], start, end);
+  for (let i = 0; i < rows.length; i += 500) {
+    await db
+      .insert(bars)
+      .values(rows.slice(i, i + 500))
+      .onConflictDoUpdate({
+        target: [bars.symbol, bars.date],
+        set: { open: sql`excluded.open`, close: sql`excluded.close` },
+      });
+  }
+  return `${rows.length} bar(s) across ${symbols.size} symbol(s), ${start} to ${end}`;
+}
+
+async function score(): Promise<string> {
+  const pending = await db
+    .select({
+      id: calls.id,
+      symbol: calls.symbol,
+      direction: calls.direction,
+      horizonDays: calls.horizonDays,
+      publishedAt: videos.publishedAt,
+    })
+    .from(calls)
+    .innerJoin(videos, eq(videos.id, calls.videoId))
+    .where(isNull(calls.scoredAt));
+
+  if (pending.length === 0) return "nothing new to score";
+
+  const sessions = new Map<string, Session[]>();
+  for (const row of await db
+    .select()
+    .from(bars)
+    .orderBy(bars.symbol, bars.date)) {
+    const list = sessions.get(row.symbol) ?? [];
+    list.push({ date: row.date, open: row.open, close: row.close });
+    sessions.set(row.symbol, list);
+  }
+
+  const benchmark = sessions.get(BENCHMARK) ?? [];
+  if (benchmark.length === 0) return `no ${BENCHMARK} bars -- run the prices stage`;
+
+  let resolved = 0;
+  const now = Date.now();
+  for (const call of pending) {
+    const outcome = resolveCall(
+      {
+        publishedOn: toDate(call.publishedAt),
+        direction: call.direction,
+        horizonDays: call.horizonDays,
+      },
+      sessions.get(call.symbol) ?? [],
+      benchmark,
+    );
+    if (!outcome) continue;
+
+    await db
+      .update(calls)
+      .set({ ...outcome, scoredAt: now })
+      .where(eq(calls.id, call.id));
+    resolved++;
+  }
+
+  return `${resolved} resolved, ${pending.length - resolved} still open`;
+}
+
 const STAGES: Record<StageName, () => Promise<string>> = {
   discover,
   transcribe,
   extract,
-  prices: async () => "not implemented",
-  score: async () => "not implemented",
+  prices,
+  score,
 };
 
 export function runStage(name: StageName): Promise<string> {
