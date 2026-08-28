@@ -14,6 +14,7 @@ build/
 # Next.js
 .next/
 next-env.d.ts
+*.tsbuildinfo
 
 # Local database
 .moff/
