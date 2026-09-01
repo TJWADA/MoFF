@@ -1,0 +1,6 @@
+onlyBuiltDependencies:
+  - esbuild
+  - "@libsql/client"
+  - "@tailwindcss/oxide"
+  - sharp
+  - unrs-resolver

@@ -1,0 +1,618 @@
+[
+  {
+    "id": "vid00040",
+    "channelId": "UC0000000000000000000003",
+    "title": "PLTR: why I am buying (2025-06-07)",
+    "publishedAt": "2025-06-07T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00058",
+    "channelId": "UC0000000000000000000004",
+    "title": "AMZN: why I am out (2025-06-15)",
+    "publishedAt": "2025-06-15T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00018",
+    "channelId": "UC0000000000000000000002",
+    "title": "AAPL: why I am buying (2025-06-17)",
+    "publishedAt": "2025-06-17T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00047",
+    "channelId": "UC0000000000000000000004",
+    "title": "AMZN: why I am out (2025-07-01)",
+    "publishedAt": "2025-07-01T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00062",
+    "channelId": "UC0000000000000000000005",
+    "title": "NVDA: why I am buying (2025-07-06)",
+    "publishedAt": "2025-07-06T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00003",
+    "channelId": "UC0000000000000000000001",
+    "title": "NVDA: why I am buying (2025-07-07)",
+    "publishedAt": "2025-07-07T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00042",
+    "channelId": "UC0000000000000000000003",
+    "title": "COIN: why I am out (2025-07-26)",
+    "publishedAt": "2025-07-26T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00004",
+    "channelId": "UC0000000000000000000001",
+    "title": "MSFT: why I am buying (2025-07-29)",
+    "publishedAt": "2025-07-29T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00034",
+    "channelId": "UC0000000000000000000003",
+    "title": "PLTR: why I am out (2025-08-12)",
+    "publishedAt": "2025-08-12T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00054",
+    "channelId": "UC0000000000000000000004",
+    "title": "META: why I am out (2025-08-15)",
+    "publishedAt": "2025-08-15T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00028",
+    "channelId": "UC0000000000000000000002",
+    "title": "MSFT: why I am out (2025-08-24)",
+    "publishedAt": "2025-08-24T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00045",
+    "channelId": "UC0000000000000000000003",
+    "title": "PLTR: why I am out (2025-08-31)",
+    "publishedAt": "2025-08-31T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00082",
+    "channelId": "UC0000000000000000000006",
+    "title": "AAPL: why I am out (2025-09-14)",
+    "publishedAt": "2025-09-14T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00086",
+    "channelId": "UC0000000000000000000006",
+    "title": "INTC: why I am buying (2025-09-16)",
+    "publishedAt": "2025-09-16T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00013",
+    "channelId": "UC0000000000000000000001",
+    "title": "INTC: why I am buying (2025-09-23)",
+    "publishedAt": "2025-09-23T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00039",
+    "channelId": "UC0000000000000000000003",
+    "title": "TSLA: why I am buying (2025-10-09)",
+    "publishedAt": "2025-10-09T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00065",
+    "channelId": "UC0000000000000000000005",
+    "title": "AAPL: why I am buying (2025-10-24)",
+    "publishedAt": "2025-10-24T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00068",
+    "channelId": "UC0000000000000000000005",
+    "title": "NVDA: why I am buying (2025-10-24)",
+    "publishedAt": "2025-10-24T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00063",
+    "channelId": "UC0000000000000000000005",
+    "title": "AMD: why I am buying (2025-10-28)",
+    "publishedAt": "2025-10-28T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00023",
+    "channelId": "UC0000000000000000000002",
+    "title": "AMZN: why I am buying (2025-11-14)",
+    "publishedAt": "2025-11-14T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00057",
+    "channelId": "UC0000000000000000000004",
+    "title": "INTC: why I am buying (2025-11-21)",
+    "publishedAt": "2025-11-21T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00073",
+    "channelId": "UC0000000000000000000005",
+    "title": "COIN: why I am buying (2025-12-01)",
+    "publishedAt": "2025-12-01T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00077",
+    "channelId": "UC0000000000000000000006",
+    "title": "PLTR: why I am buying (2025-12-09)",
+    "publishedAt": "2025-12-09T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00072",
+    "channelId": "UC0000000000000000000005",
+    "title": "TSLA: why I am buying (2025-12-15)",
+    "publishedAt": "2025-12-15T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00009",
+    "channelId": "UC0000000000000000000001",
+    "title": "AMD: why I am buying (2025-12-20)",
+    "publishedAt": "2025-12-20T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00083",
+    "channelId": "UC0000000000000000000006",
+    "title": "COIN: why I am buying (2025-12-21)",
+    "publishedAt": "2025-12-21T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00005",
+    "channelId": "UC0000000000000000000001",
+    "title": "PLTR: why I am out (2026-01-08)",
+    "publishedAt": "2026-01-08T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00046",
+    "channelId": "UC0000000000000000000003",
+    "title": "PLTR: why I am buying (2026-01-29)",
+    "publishedAt": "2026-01-29T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00011",
+    "channelId": "UC0000000000000000000001",
+    "title": "MSFT: why I am out (2026-02-01)",
+    "publishedAt": "2026-02-01T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00025",
+    "channelId": "UC0000000000000000000002",
+    "title": "AAPL: why I am out (2026-02-05)",
+    "publishedAt": "2026-02-05T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00076",
+    "channelId": "UC0000000000000000000006",
+    "title": "TSLA: why I am buying (2026-02-05)",
+    "publishedAt": "2026-02-05T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00074",
+    "channelId": "UC0000000000000000000005",
+    "title": "GOOGL: why I am out (2026-02-09)",
+    "publishedAt": "2026-02-09T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00017",
+    "channelId": "UC0000000000000000000002",
+    "title": "AMZN: why I am out (2026-02-17)",
+    "publishedAt": "2026-02-17T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00053",
+    "channelId": "UC0000000000000000000004",
+    "title": "META: why I am buying (2026-02-18)",
+    "publishedAt": "2026-02-18T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00080",
+    "channelId": "UC0000000000000000000006",
+    "title": "AMZN: why I am out (2026-02-21)",
+    "publishedAt": "2026-02-21T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00055",
+    "channelId": "UC0000000000000000000004",
+    "title": "AMZN: why I am buying (2026-02-23)",
+    "publishedAt": "2026-02-23T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00043",
+    "channelId": "UC0000000000000000000003",
+    "title": "AMD: why I am out (2026-03-09)",
+    "publishedAt": "2026-03-09T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00075",
+    "channelId": "UC0000000000000000000006",
+    "title": "INTC: why I am buying (2026-03-11)",
+    "publishedAt": "2026-03-11T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00008",
+    "channelId": "UC0000000000000000000001",
+    "title": "MSFT: why I am buying (2026-04-09)",
+    "publishedAt": "2026-04-09T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00070",
+    "channelId": "UC0000000000000000000005",
+    "title": "AMD: why I am out (2026-04-09)",
+    "publishedAt": "2026-04-09T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00012",
+    "channelId": "UC0000000000000000000001",
+    "title": "GOOGL: why I am out (2026-04-23)",
+    "publishedAt": "2026-04-23T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00026",
+    "channelId": "UC0000000000000000000002",
+    "title": "MSFT: why I am buying (2026-04-23)",
+    "publishedAt": "2026-04-23T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00037",
+    "channelId": "UC0000000000000000000003",
+    "title": "TSLA: why I am buying (2026-05-14)",
+    "publishedAt": "2026-05-14T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00024",
+    "channelId": "UC0000000000000000000002",
+    "title": "META: why I am buying (2026-06-06)",
+    "publishedAt": "2026-06-06T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00066",
+    "channelId": "UC0000000000000000000005",
+    "title": "TSLA: why I am out (2026-06-06)",
+    "publishedAt": "2026-06-06T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00087",
+    "channelId": "UC0000000000000000000006",
+    "title": "TSLA: why I am buying (2026-06-17)",
+    "publishedAt": "2026-06-17T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00084",
+    "channelId": "UC0000000000000000000006",
+    "title": "PLTR: why I am out (2026-06-20)",
+    "publishedAt": "2026-06-20T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00032",
+    "channelId": "UC0000000000000000000003",
+    "title": "COIN: why I am buying (2026-06-21)",
+    "publishedAt": "2026-06-21T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00038",
+    "channelId": "UC0000000000000000000003",
+    "title": "PLTR: why I am out (2026-06-22)",
+    "publishedAt": "2026-06-22T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00020",
+    "channelId": "UC0000000000000000000002",
+    "title": "COIN: why I am buying (2026-06-25)",
+    "publishedAt": "2026-06-25T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00033",
+    "channelId": "UC0000000000000000000003",
+    "title": "COIN: why I am buying (2026-06-27)",
+    "publishedAt": "2026-06-27T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00001",
+    "channelId": "UC0000000000000000000001",
+    "title": "INTC: why I am buying (2026-07-01)",
+    "publishedAt": "2026-07-01T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00007",
+    "channelId": "UC0000000000000000000001",
+    "title": "TSLA: why I am buying (2026-07-01)",
+    "publishedAt": "2026-07-01T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00016",
+    "channelId": "UC0000000000000000000001",
+    "title": "COIN: why I am buying (2026-07-02)",
+    "publishedAt": "2026-07-02T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00050",
+    "channelId": "UC0000000000000000000004",
+    "title": "TSLA: why I am out (2026-07-03)",
+    "publishedAt": "2026-07-03T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00056",
+    "channelId": "UC0000000000000000000004",
+    "title": "COIN: why I am out (2026-07-03)",
+    "publishedAt": "2026-07-03T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00060",
+    "channelId": "UC0000000000000000000005",
+    "title": "COIN: why I am out (2026-07-05)",
+    "publishedAt": "2026-07-05T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00052",
+    "channelId": "UC0000000000000000000004",
+    "title": "META: why I am out (2026-07-06)",
+    "publishedAt": "2026-07-06T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00081",
+    "channelId": "UC0000000000000000000006",
+    "title": "TSLA: why I am buying (2026-07-06)",
+    "publishedAt": "2026-07-06T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00002",
+    "channelId": "UC0000000000000000000001",
+    "title": "PLTR: why I am buying (2026-07-09)",
+    "publishedAt": "2026-07-09T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00088",
+    "channelId": "UC0000000000000000000006",
+    "title": "NVDA: why I am out (2026-07-13)",
+    "publishedAt": "2026-07-13T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00015",
+    "channelId": "UC0000000000000000000001",
+    "title": "COIN: why I am out (2026-07-14)",
+    "publishedAt": "2026-07-14T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00027",
+    "channelId": "UC0000000000000000000002",
+    "title": "META: why I am buying (2026-07-14)",
+    "publishedAt": "2026-07-14T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00031",
+    "channelId": "UC0000000000000000000003",
+    "title": "COIN: why I am buying (2026-07-14)",
+    "publishedAt": "2026-07-14T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00006",
+    "channelId": "UC0000000000000000000001",
+    "title": "COIN: why I am out (2026-07-15)",
+    "publishedAt": "2026-07-15T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00041",
+    "channelId": "UC0000000000000000000003",
+    "title": "TSLA: why I am buying (2026-07-16)",
+    "publishedAt": "2026-07-16T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00014",
+    "channelId": "UC0000000000000000000001",
+    "title": "INTC: why I am buying (2026-07-18)",
+    "publishedAt": "2026-07-18T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00049",
+    "channelId": "UC0000000000000000000004",
+    "title": "COIN: why I am out (2026-07-18)",
+    "publishedAt": "2026-07-18T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00030",
+    "channelId": "UC0000000000000000000002",
+    "title": "TSLA: why I am buying (2026-07-19)",
+    "publishedAt": "2026-07-19T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00078",
+    "channelId": "UC0000000000000000000006",
+    "title": "NVDA: why I am out (2026-07-19)",
+    "publishedAt": "2026-07-19T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00022",
+    "channelId": "UC0000000000000000000002",
+    "title": "COIN: why I am buying (2026-07-24)",
+    "publishedAt": "2026-07-24T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00044",
+    "channelId": "UC0000000000000000000003",
+    "title": "NVDA: why I am buying (2026-07-26)",
+    "publishedAt": "2026-07-26T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00064",
+    "channelId": "UC0000000000000000000005",
+    "title": "COIN: why I am out (2026-07-26)",
+    "publishedAt": "2026-07-26T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00035",
+    "channelId": "UC0000000000000000000003",
+    "title": "COIN: why I am out (2026-07-27)",
+    "publishedAt": "2026-07-27T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00059",
+    "channelId": "UC0000000000000000000004",
+    "title": "COIN: why I am buying (2026-07-27)",
+    "publishedAt": "2026-07-27T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00069",
+    "channelId": "UC0000000000000000000005",
+    "title": "TSLA: why I am out (2026-07-29)",
+    "publishedAt": "2026-07-29T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00029",
+    "channelId": "UC0000000000000000000002",
+    "title": "COIN: why I am out (2026-08-01)",
+    "publishedAt": "2026-08-01T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00067",
+    "channelId": "UC0000000000000000000005",
+    "title": "GOOGL: why I am out (2026-08-01)",
+    "publishedAt": "2026-08-01T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00085",
+    "channelId": "UC0000000000000000000006",
+    "title": "COIN: why I am out (2026-08-04)",
+    "publishedAt": "2026-08-04T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00061",
+    "channelId": "UC0000000000000000000005",
+    "title": "TSLA: why I am out (2026-08-11)",
+    "publishedAt": "2026-08-11T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00021",
+    "channelId": "UC0000000000000000000002",
+    "title": "NVDA: why I am buying (2026-08-12)",
+    "publishedAt": "2026-08-12T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00036",
+    "channelId": "UC0000000000000000000003",
+    "title": "PLTR: why I am buying (2026-08-17)",
+    "publishedAt": "2026-08-17T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00051",
+    "channelId": "UC0000000000000000000004",
+    "title": "TSLA: why I am out (2026-08-17)",
+    "publishedAt": "2026-08-17T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00071",
+    "channelId": "UC0000000000000000000005",
+    "title": "COIN: why I am out (2026-08-20)",
+    "publishedAt": "2026-08-20T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00079",
+    "channelId": "UC0000000000000000000006",
+    "title": "PLTR: why I am buying (2026-08-20)",
+    "publishedAt": "2026-08-20T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00010",
+    "channelId": "UC0000000000000000000001",
+    "title": "MSFT: why I am out (2026-08-24)",
+    "publishedAt": "2026-08-24T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00019",
+    "channelId": "UC0000000000000000000002",
+    "title": "NVDA: why I am buying (2026-08-24)",
+    "publishedAt": "2026-08-24T14:30:00.000Z",
+    "isShort": false
+  },
+  {
+    "id": "vid00048",
+    "channelId": "UC0000000000000000000004",
+    "title": "TSLA: why I am out (2026-08-25)",
+    "publishedAt": "2026-08-25T14:30:00.000Z",
+    "isShort": false
+  }
+]

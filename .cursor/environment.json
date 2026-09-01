@@ -1,3 +1,11 @@
 {
-  "name": "moff"
+  "name": "moff",
+  "install": "pnpm install --frozen-lockfile && pnpm db:migrate && pnpm db:seed && pnpm pipeline",
+  "start": "pnpm dev",
+  "terminals": [
+    {
+      "name": "dev",
+      "command": "pnpm dev"
+    }
+  ]
 }
