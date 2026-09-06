@@ -1,8 +1,8 @@
 # MoFF — Mixture of Finfluencers
 
-Tracks how YouTube finance influencers’ calls actually performed, and shows where they currently agree or disagree.
+Web application that backtests historical predictions from YouTube finance influencers to quantify their credibility.
 
-The pipeline pulls new videos from tracked channels, fetches their transcripts, uses an LLM to extract structured trade calls, then scores each call against SPY over the same window. This is not financial advice, and no trades are placed on anyone’s behalf.
+Unstructured trading advice from video transcripts is standardized via the OpenAI API, then backtested through the Alpaca API against market baselines (SPY). The front end presents comprehensive credibility profiles for each influencer and shows where channels currently agree or disagree. This is not financial advice, and no trades are placed on anyone’s behalf.
 
 **Stack:** Next.js · TypeScript · Drizzle / SQLite (Turso-ready) · Zod · OpenAI · Alpaca · Vitest
 
@@ -10,8 +10,9 @@ The pipeline pulls new videos from tracked channels, fetches their transcripts, 
 
 - **Discover** — poll each channel’s YouTube RSS feed (quota-free, no API key)
 - **Transcribe** — fetch transcripts once via Supadata and cache them
-- **Extract** — LLM with a Zod-validated schema, one row per distinct thesis
-- **Score** — resolve each call against SPY once its horizon has elapsed
+- **Extract** — OpenAI + Zod schema turns messy spoken advice into structured trade calls
+- **Score** — backtest each call against SPY once its horizon has elapsed (Alpaca prices)
+- **Profiles** — credibility stats (excess return, hit rate, sample size) per influencer
 - **Consensus** — one vote per channel per ticker for calls still inside their horizon
 
 ## Running it
