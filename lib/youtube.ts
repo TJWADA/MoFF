@@ -54,13 +54,12 @@ export type ChannelProfile = {
   description: string | null;
   avatarUrl: string | null;
   videos: ChannelVideo[];
+  /** Opaque YouTube token for the next Videos-tab page, if any. */
+  videosContinuation: string | null;
 };
 
 /** How many recent uploads to show initially on the channel page. */
 export const RECENT_VIDEO_LIMIT = 6;
-
-/** How many uploads to fetch from YouTube's Videos tab (first page). */
-export const CHANNEL_VIDEO_FETCH_LIMIT = 30;
 
 export type VideoMeta = {
   id: string;
@@ -129,6 +128,124 @@ function walk(node: unknown, visit: (obj: Record<string, unknown>) => void) {
   const rec = node as Record<string, unknown>;
   visit(rec);
   for (const value of Object.values(rec)) walk(value, visit);
+}
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null;
+  return value as Record<string, unknown>;
+}
+
+function continuationTokenFrom(value: unknown): string | null {
+  const rec = asRecord(value);
+  const renderer = asRecord(rec?.continuationItemRenderer);
+  const endpoint = asRecord(renderer?.continuationEndpoint);
+  const command = asRecord(endpoint?.continuationCommand);
+  return typeof command?.token === "string" && command.token
+    ? command.token
+    : null;
+}
+
+function videoFromLockupParent(
+  obj: Record<string, unknown>,
+): ChannelVideo | null {
+  const lockup = asRecord(obj.lockupViewModel);
+  if (!lockup) return null;
+  const contentId = lockup.contentId;
+  if (typeof contentId !== "string" || !contentId) return null;
+  const contentType = lockup.contentType;
+  if (
+    typeof contentType === "string" &&
+    contentType !== "LOCKUP_CONTENT_TYPE_VIDEO"
+  ) {
+    return null;
+  }
+
+  const metadata = asRecord(lockup.metadata);
+  const lockupMeta = asRecord(metadata?.lockupMetadataViewModel);
+  const title = asRecord(lockupMeta?.title);
+  const contentImage = asRecord(lockup.contentImage);
+  const thumbVm = asRecord(contentImage?.thumbnailViewModel);
+  const image = asRecord(thumbVm?.image);
+  const sources = image?.sources;
+  const lastSource = Array.isArray(sources)
+    ? asRecord(sources.at(-1))
+    : null;
+  const thumbUrl =
+    typeof lastSource?.url === "string" ? lastSource.url : undefined;
+
+  return {
+    id: contentId,
+    title:
+      typeof title?.content === "string" && title.content
+        ? title.content
+        : contentId,
+    publishedLabel: publishedFromLockup(obj),
+    thumbnailUrl:
+      absUrl(thumbUrl) ??
+      `https://i.ytimg.com/vi/${contentId}/hqdefault.jpg`,
+    url: `https://www.youtube.com/watch?v=${contentId}`,
+  };
+}
+
+/** Videos-tab grid items from a browse response (first page or continuation). */
+function shelfItemsFromBrowse(body: unknown): unknown[] | null {
+  const rec = asRecord(body);
+  if (!rec) return null;
+
+  const actions = rec.onResponseReceivedActions;
+  if (Array.isArray(actions)) {
+    for (const action of actions) {
+      const a = asRecord(action);
+      const append = asRecord(a?.appendContinuationItemsAction);
+      if (append && Array.isArray(append.continuationItems)) {
+        return append.continuationItems;
+      }
+      const reload = asRecord(a?.reloadContinuationItemsCommand);
+      if (reload && Array.isArray(reload.continuationItems)) {
+        return reload.continuationItems;
+      }
+    }
+  }
+
+  const contents = asRecord(rec.contents);
+  const twoCol = asRecord(contents?.twoColumnBrowseResultsRenderer);
+  const tabs = twoCol?.tabs;
+  if (Array.isArray(tabs)) {
+    for (const tab of tabs) {
+      const renderer = asRecord(asRecord(tab)?.tabRenderer);
+      const content = asRecord(renderer?.content);
+      const grid = asRecord(content?.richGridRenderer);
+      if (grid && Array.isArray(grid.contents)) return grid.contents;
+    }
+  }
+
+  return null;
+}
+
+function parseShelfItems(items: unknown[]): {
+  videos: ChannelVideo[];
+  continuation: string | null;
+} {
+  const videos: ChannelVideo[] = [];
+  const seen = new Set<string>();
+  let continuation: string | null = null;
+
+  for (const item of items) {
+    const token = continuationTokenFrom(item);
+    if (token) {
+      continuation = token;
+      continue;
+    }
+    const rich = asRecord(asRecord(item)?.richItemRenderer);
+    const content = asRecord(rich?.content);
+    if (!content) continue;
+    const video = videoFromLockupParent(content);
+    if (!video || seen.has(video.id)) continue;
+    seen.add(video.id);
+    videos.push(video);
+  }
+
+  return { videos, continuation };
 }
 
 /** Classify what the user typed so we hit the cheapest YouTube endpoint. */
@@ -264,7 +381,7 @@ export async function fetchChannelProfile(
     throw new Error(`Not a YouTube channel id: ${channelId}`);
   }
 
-  const videoLimit = options?.videoLimit ?? CHANNEL_VIDEO_FETCH_LIMIT;
+  const skipVideos = options?.videoLimit === 0;
 
   const body = await innertube("browse", {
     browseId: channelId,
@@ -288,42 +405,43 @@ export async function fetchChannelProfile(
   const description = meta?.description?.trim() || null;
   const avatarUrl = absUrl(meta?.avatar?.thumbnails?.at(-1)?.url);
 
-  const videos: ChannelVideo[] = [];
-  const seen = new Set<string>();
-  walk(body, (obj) => {
-    if (videoLimit > 0 && videos.length >= videoLimit) return;
+  if (skipVideos) {
+    return {
+      id: channelId,
+      name,
+      handle,
+      description,
+      avatarUrl,
+      videos: [],
+      videosContinuation: null,
+    };
+  }
 
-    const lockup = obj.lockupViewModel as
-      | {
-          contentId?: string;
-          contentType?: string;
-          metadata?: { lockupMetadataViewModel?: { title?: { content?: string } } };
-          contentImage?: {
-            thumbnailViewModel?: { image?: { sources?: { url?: string }[] } };
-          };
-        }
-      | undefined;
-    if (!lockup?.contentId) return;
-    if (lockup.contentType && lockup.contentType !== "LOCKUP_CONTENT_TYPE_VIDEO") {
-      return;
-    }
-    if (seen.has(lockup.contentId)) return;
-    seen.add(lockup.contentId);
+  const items = shelfItemsFromBrowse(body) ?? [];
+  const { videos, continuation } = parseShelfItems(items);
 
-    videos.push({
-      id: lockup.contentId,
-      title:
-        lockup.metadata?.lockupMetadataViewModel?.title?.content ??
-        lockup.contentId,
-      publishedLabel: publishedFromLockup(obj),
-      thumbnailUrl:
-        absUrl(lockup.contentImage?.thumbnailViewModel?.image?.sources?.at(-1)?.url) ??
-        `https://i.ytimg.com/vi/${lockup.contentId}/hqdefault.jpg`,
-      url: `https://www.youtube.com/watch?v=${lockup.contentId}`,
-    });
-  });
+  return {
+    id: channelId,
+    name,
+    handle,
+    description,
+    avatarUrl,
+    videos,
+    videosContinuation: continuation,
+  };
+}
 
-  return { id: channelId, name, handle, description, avatarUrl, videos };
+/** Next page of a channel’s Videos tab, using YouTube’s continuation token. */
+export async function fetchChannelVideosPage(continuation: string): Promise<{
+  videos: ChannelVideo[];
+  continuation: string | null;
+}> {
+  const token = continuation.trim();
+  if (!token) return { videos: [], continuation: null };
+
+  const body = await innertube("browse", { continuation: token });
+  const items = shelfItemsFromBrowse(body) ?? [];
+  return parseShelfItems(items);
 }
 
 /** Resolve any parsed query into a channel list (always one step before the channel page). */

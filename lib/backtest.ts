@@ -26,9 +26,39 @@ export type CallResult = {
 
 export type ChartPoint = { date: string; trade: number; spy: number };
 
+/** Unscaled daily prices for the trade chart (stock + SPY closes). */
+export type RawPricePoint = { date: string; stock: number; spy: number };
+
+export type ChartRange =
+  | "since"
+  | "1M"
+  | "3M"
+  | "6M"
+  | "1Y"
+  | "2Y"
+  | "5Y"
+  | "max";
+
+export type ChartUnit = "pct" | "usd";
+
+const RANGE_MONTHS: Record<Exclude<ChartRange, "since" | "max">, number> = {
+  "1M": 1,
+  "3M": 3,
+  "6M": 6,
+  "1Y": 12,
+  "2Y": 24,
+  "5Y": 60,
+};
+
 export function addDays(date: string, days: number): string {
   const d = new Date(`${date}T00:00:00Z`);
   d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+export function addMonths(date: string, months: number): string {
+  const d = new Date(`${date}T00:00:00Z`);
+  d.setUTCMonth(d.getUTCMonth() + months);
   return d.toISOString().slice(0, 10);
 }
 
@@ -211,6 +241,118 @@ export function buildTradeSeries(
   return points;
 }
 
+/**
+ * Full overlapping stock/SPY history for the trade chart. Entry day uses open
+ * so it matches scoring; every other day uses close.
+ */
+export function buildRawTradeSeries(
+  result: CallResult,
+  sessions: Session[],
+  benchmark: Session[],
+): RawPricePoint[] {
+  if (
+    !result.entryDate ||
+    result.entryPrice == null ||
+    result.status === "unresolved"
+  ) {
+    return [];
+  }
+
+  const benchByDate = new Map(benchmark.map((s) => [s.date, s]));
+  const benchEntry = sessionOnOrAfter(benchmark, result.entryDate);
+  const points: RawPricePoint[] = [];
+
+  for (const s of sessions) {
+    const bench = benchByDate.get(s.date);
+    if (!bench) continue;
+    const stock =
+      s.date === result.entryDate ? result.entryPrice : s.close;
+    const spy =
+      s.date === result.entryDate
+        ? (benchEntry?.open ?? bench.open)
+        : bench.close;
+    points.push({
+      date: s.date,
+      stock: Math.round(stock * 1e6) / 1e6,
+      spy: Math.round(spy * 1e6) / 1e6,
+    });
+  }
+
+  return points;
+}
+
+export function slicePrices(
+  prices: RawPricePoint[],
+  range: ChartRange,
+  entryDate: string | undefined,
+): RawPricePoint[] {
+  if (prices.length === 0) return [];
+  const end = prices[prices.length - 1].date;
+  let start: string;
+  if (range === "since") {
+    start = entryDate && entryDate <= end ? entryDate : prices[0].date;
+  } else if (range === "max") {
+    start = prices[0].date;
+  } else {
+    start = addMonths(end, -RANGE_MONTHS[range]);
+  }
+  return prices.filter((p) => p.date >= start && p.date <= end);
+}
+
+export function scalePrices(
+  sliced: RawPricePoint[],
+  range: ChartRange,
+  unit: ChartUnit,
+  entryDate: string | undefined,
+  entryPrice: number | undefined,
+  allPrices: RawPricePoint[],
+): ChartPoint[] {
+  if (sliced.length === 0) return [];
+
+  const entryPt = entryDate
+    ? allPrices.find((p) => p.date === entryDate)
+    : undefined;
+  const stockEntry = entryPrice ?? entryPt?.stock;
+  const spyEntry = entryPt?.spy;
+
+  if (unit === "usd") {
+    if (stockEntry == null || spyEntry == null || spyEntry === 0) {
+      return sliced.map((p) => ({
+        date: p.date,
+        trade: p.stock,
+        spy: p.spy,
+      }));
+    }
+    return sliced.map((p) => ({
+      date: p.date,
+      trade: p.stock,
+      spy: stockEntry * (p.spy / spyEntry),
+    }));
+  }
+
+  if (
+    range === "since" &&
+    stockEntry != null &&
+    spyEntry != null &&
+    stockEntry !== 0 &&
+    spyEntry !== 0
+  ) {
+    return sliced.map((p) => ({
+      date: p.date,
+      trade: (p.stock / stockEntry) * 100,
+      spy: (p.spy / spyEntry) * 100,
+    }));
+  }
+
+  const first = sliced[0];
+  if (first.stock === 0 || first.spy === 0) return [];
+  return sliced.map((p) => ({
+    date: p.date,
+    trade: (p.stock / first.stock) * 100,
+    spy: (p.spy / first.spy) * 100,
+  }));
+}
+
 type ActiveCall = {
   direction: "long" | "short";
   entryDate: string;
@@ -279,7 +421,11 @@ export function backtestCalls(
   publishedOn: string,
   bars: BarRow[],
   mode: "video" | "trade",
-): { results: CallResult[]; series: ChartPoint[] } {
+): {
+  results: CallResult[];
+  series: ChartPoint[];
+  prices?: RawPricePoint[];
+} {
   const bySymbol = barsBySymbol(bars);
   const benchmark = sessionsFor(bySymbol, BENCHMARK);
 
@@ -295,14 +441,11 @@ export function backtestCalls(
   if (mode === "trade" && calls.length === 1) {
     const call = calls[0];
     const result = results[0];
+    const sessions = sessionsFor(bySymbol, call.symbol);
     return {
       results,
-      series: buildTradeSeries(
-        call,
-        result,
-        sessionsFor(bySymbol, call.symbol),
-        benchmark,
-      ),
+      series: buildTradeSeries(call, result, sessions, benchmark),
+      prices: buildRawTradeSeries(result, sessions, benchmark),
     };
   }
 
@@ -329,12 +472,17 @@ export function backtestCalls(
   return { results, series: buildBookSeries(actives, benchmark) };
 }
 
-/** Inclusive date window covering publish through today. */
+/** Inclusive date window for price bars. Trade mode pulls ~20y so the chart can look back. */
 export function barsWindow(
   publishedOn: string,
   _calls: ExtractedCall[],
+  mode: "video" | "trade" = "video",
 ): { start: string; end: string } {
   const today = new Date().toISOString().slice(0, 10);
+  if (mode === "trade") {
+    const start = addDays(today, -(365 * 20 + 7));
+    return { start, end: today < start ? start : today };
+  }
   const start = addDays(publishedOn, -7);
   return { start, end: today < start ? start : today };
 }

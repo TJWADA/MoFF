@@ -90,11 +90,13 @@ export default async function TradePage({
 
   let result;
   let series;
+  let prices;
   let error: string | null = null;
   try {
     const evaluated = await evaluateCalls([call], publishedAt, "trade");
     result = evaluated.results[0];
     series = evaluated.series;
+    prices = evaluated.prices;
     if (evaluated.calls[0]) call = evaluated.calls[0];
   } catch (err) {
     error = err instanceof Error ? err.message : "Couldn’t check how this trade did.";
@@ -135,10 +137,13 @@ export default async function TradePage({
           <CallMetrics result={result} />
           <BacktestChart
             series={series ?? []}
+            prices={prices}
             tradeLabel={formatCallName(call)}
             entryDate={result.entryDate}
+            entryPrice={result.entryPrice}
             exitDate={result.exitDate}
             exitLabel="As of"
+            entryLabel="Call"
             horizonDate={recommendedHorizonDate(
               result.entryDate,
               call.horizonDays,

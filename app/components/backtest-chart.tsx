@@ -1,42 +1,103 @@
 "use client";
 
-import { useState, type PointerEvent } from "react";
-import type { ChartPoint } from "@/lib/backtest";
+import { useEffect, useMemo, useState, type PointerEvent } from "react";
+import {
+  scalePrices,
+  slicePrices,
+  type ChartPoint,
+  type ChartRange,
+  type ChartUnit,
+  type RawPricePoint,
+} from "@/lib/backtest";
 
 type Hover = { idx: number; closer: "trade" | "spy" };
 
+const RANGES: { id: ChartRange; label: string }[] = [
+  { id: "since", label: "Since video" },
+  { id: "1M", label: "1M" },
+  { id: "3M", label: "3M" },
+  { id: "6M", label: "6M" },
+  { id: "1Y", label: "1Y" },
+  { id: "2Y", label: "2Y" },
+  { id: "5Y", label: "5Y" },
+  { id: "max", label: "Max" },
+];
+
 export function BacktestChart({
-  series,
+  series: staticSeries,
+  prices,
   tradeLabel,
   entryDate,
+  entryPrice,
   exitDate: _exitDate,
   exitLabel = "As of",
   horizonDate,
+  entryLabel,
 }: {
   series: ChartPoint[];
+  /** When set, the chart can change range and units (trade page). */
+  prices?: RawPricePoint[];
   tradeLabel: string;
   entryDate?: string;
+  entryPrice?: number;
   exitDate?: string;
   /** e.g. "As of" */
   exitLabel?: string;
   /** Spoken hold; drawn when it falls inside the series. */
   horizonDate?: string;
+  /** Vertical marker label, e.g. "Call". */
+  entryLabel?: string;
 }) {
+  const interactive = Boolean(prices && prices.length >= 2);
+  const [range, setRange] = useState<ChartRange>("since");
+  const [unit, setUnit] = useState<ChartUnit>("pct");
   const [hover, setHover] = useState<Hover | null>(null);
+  const [live, setLive] = useState(false);
 
-  if (series.length < 2) {
-    return (
-      <p className="text-sm text-mute">
-        Not enough sessions to draw a chart yet.
-      </p>
-    );
-  }
+  useEffect(() => {
+    setLive(true);
+  }, []);
+
+  const series = useMemo(() => {
+    if (!live || !prices || prices.length < 2) return staticSeries;
+    const sliced = slicePrices(prices, range, entryDate);
+    return scalePrices(sliced, range, unit, entryDate, entryPrice, prices);
+  }, [live, prices, range, unit, entryDate, entryPrice, staticSeries]);
 
   const width = 640;
   const height = 220;
-  const pad = { top: 16, right: 12, bottom: 28, left: 40 };
+  const pad = {
+    top: 16,
+    right: 12,
+    bottom: 28,
+    left: unit === "usd" && interactive ? 52 : 40,
+  };
   const innerW = width - pad.left - pad.right;
   const innerH = height - pad.top - pad.bottom;
+
+  if (series.length < 2) {
+    return (
+      <div className="space-y-2">
+        <p className="text-sm text-mute">
+          Not enough sessions to draw a chart yet.
+        </p>
+        {interactive ? (
+          <ChartControls
+            range={range}
+            unit={unit}
+            onRange={(next) => {
+              setRange(next);
+              setHover(null);
+            }}
+            onUnit={(next) => {
+              setUnit(next);
+              setHover(null);
+            }}
+          />
+        ) : null}
+      </div>
+    );
+  }
 
   const values = series.flatMap((p) => [p.trade, p.spy]);
   const minV = Math.min(...values);
@@ -57,7 +118,9 @@ export function BacktestChart({
 
   const entryIdx = entryDate
     ? series.findIndex((p) => p.date === entryDate)
-    : 0;
+    : interactive
+      ? -1
+      : 0;
   const horizonIdx = horizonDate
     ? series.findIndex((p) => p.date >= horizonDate)
     : -1;
@@ -65,6 +128,8 @@ export function BacktestChart({
   const ticks = [yMin, (yMin + yMax) / 2, yMax];
   const point = hover ? series[hover.idx] : null;
   const tooltipOnRight = hover ? xAt(hover.idx) < width * 0.55 : true;
+  const callNearRight =
+    entryIdx >= 0 && xAt(entryIdx) > width - pad.right - 40;
 
   function readPointer(e: PointerEvent<SVGSVGElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -103,7 +168,7 @@ export function BacktestChart({
           onPointerLeave={() => setHover(null)}
         >
           {ticks.map((t) => (
-            <g key={t}>
+            <g key={formatTick(t, interactive ? unit : "pct")}>
               <line
                 x1={pad.left}
                 x2={width - pad.right}
@@ -120,7 +185,7 @@ export function BacktestChart({
                 className="fill-mute"
                 fontSize={10}
               >
-                {t.toFixed(0)}
+                {formatTick(t, interactive ? unit : "pct")}
               </text>
             </g>
           ))}
@@ -146,15 +211,28 @@ export function BacktestChart({
           />
 
           {entryIdx >= 0 ? (
-            <line
-              x1={xAt(entryIdx)}
-              x2={xAt(entryIdx)}
-              y1={pad.top}
-              y2={height - pad.bottom}
-              stroke="currentColor"
-              className="text-line"
-              strokeWidth={1}
-            />
+            <g>
+              <line
+                x1={xAt(entryIdx)}
+                x2={xAt(entryIdx)}
+                y1={pad.top}
+                y2={height - pad.bottom}
+                stroke="currentColor"
+                className="text-line"
+                strokeWidth={1}
+              />
+              {entryLabel ? (
+                <text
+                  x={xAt(entryIdx) + (callNearRight ? -4 : 4)}
+                  y={pad.top + 10}
+                  textAnchor={callNearRight ? "end" : "start"}
+                  className="fill-mute"
+                  fontSize={9}
+                >
+                  {entryLabel}
+                </text>
+              ) : null}
+            </g>
           ) : null}
           {horizonIdx > 0 && horizonIdx < series.length - 1 ? (
             <g>
@@ -244,11 +322,13 @@ export function BacktestChart({
                 label={tradeLabel}
                 value={point.trade}
                 active={hover.closer === "trade"}
+                unit={interactive ? unit : "pct"}
               />
               <TooltipRow
                 label="SPY"
                 value={point.spy}
                 active={hover.closer === "spy"}
+                unit={interactive ? unit : "pct"}
                 dashed
               />
             </ul>
@@ -273,8 +353,88 @@ export function BacktestChart({
           SPY
         </span>
       </div>
+
+      {interactive ? (
+        <ChartControls
+          range={range}
+          unit={unit}
+          onRange={(next) => {
+            setRange(next);
+            setHover(null);
+          }}
+          onUnit={(next) => {
+            setUnit(next);
+            setHover(null);
+          }}
+        />
+      ) : null}
     </div>
   );
+}
+
+function ChartControls({
+  range,
+  unit,
+  onRange,
+  onUnit,
+}: {
+  range: ChartRange;
+  unit: ChartUnit;
+  onRange: (range: ChartRange) => void;
+  onUnit: (unit: ChartUnit) => void;
+}) {
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        {RANGES.map((r) => (
+          <button
+            key={r.id}
+            type="button"
+            onClick={() => onRange(r.id)}
+            className={
+              range === r.id
+                ? "font-medium text-ink"
+                : "text-mute hover:text-ink"
+            }
+          >
+            {r.label}
+          </button>
+        ))}
+      </div>
+      <div className="flex items-center gap-2 text-sm">
+        <button
+          type="button"
+          onClick={() => onUnit("pct")}
+          className={
+            unit === "pct" ? "font-medium text-ink" : "text-mute hover:text-ink"
+          }
+        >
+          %
+        </button>
+        <button
+          type="button"
+          onClick={() => onUnit("usd")}
+          className={
+            unit === "usd" ? "font-medium text-ink" : "text-mute hover:text-ink"
+          }
+        >
+          $
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function formatTick(n: number, unit: ChartUnit): string {
+  if (unit === "pct") return n.toFixed(0);
+  const abs = Math.abs(n);
+  if (abs >= 100) return `$${n.toFixed(0)}`;
+  return `$${n.toFixed(2)}`;
+}
+
+function formatValue(n: number, unit: ChartUnit): string {
+  if (unit === "pct") return n.toFixed(1);
+  return `$${n.toFixed(2)}`;
 }
 
 function TooltipRow({
@@ -282,11 +442,13 @@ function TooltipRow({
   value,
   active,
   dashed,
+  unit,
 }: {
   label: string;
   value: number;
   active: boolean;
   dashed?: boolean;
+  unit: ChartUnit;
 }) {
   return (
     <li
@@ -309,7 +471,7 @@ function TooltipRow({
         />
         <span className={active ? "font-medium" : undefined}>{label}</span>
       </span>
-      <span className="font-mono tabular-nums">{value.toFixed(1)}</span>
+      <span className="font-mono tabular-nums">{formatValue(value, unit)}</span>
     </li>
   );
 }
