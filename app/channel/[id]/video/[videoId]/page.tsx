@@ -97,7 +97,7 @@ export default async function VideoPage({
       ) : (
         <p className="text-sm text-danger">
           Could not determine this video&rsquo;s publish date, so we can&rsquo;t
-          check how its calls did.
+          check how its ideas did.
         </p>
       )}
     </div>

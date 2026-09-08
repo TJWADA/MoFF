@@ -19,8 +19,8 @@ export type BacktestState =
 const CallSchema = z.object({
   symbol: z.string(),
   companyName: z.string().optional().default(""),
-  direction: z.enum(["long", "short"]),
-  horizonDays: z.number().int().min(1).max(730),
+  direction: z.enum(["long", "short"]).optional().default("long"),
+  horizonDays: z.number().int().min(1).max(730).nullable().optional().default(null),
   rationale: z.string(),
   quote: z.string(),
   quoteStartSeconds: z.number().int().min(0).nullable(),

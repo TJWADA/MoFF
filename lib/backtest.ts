@@ -8,12 +8,16 @@ export type Session = { date: string; open: number; close: number };
 export type CallResult = {
   symbol: string;
   direction: "long" | "short";
-  horizonDays: number;
+  horizonDays: number | null;
   status: "completed" | "open" | "unresolved";
   entryDate?: string;
   exitDate?: string;
   entryPrice?: number;
   exitPrice?: number;
+  /** Raw stock move over the window (exit/entry - 1), not direction-adjusted. */
+  priceReturn?: number;
+  /** SPY move over the same window. */
+  spyReturn?: number;
   absoluteReturn?: number;
   excessReturn?: number;
   hit?: boolean;
@@ -26,6 +30,14 @@ export function addDays(date: string, days: number): string {
   const d = new Date(`${date}T00:00:00Z`);
   d.setUTCDate(d.getUTCDate() + days);
   return d.toISOString().slice(0, 10);
+}
+
+export function recommendedHorizonDate(
+  entryDate: string | undefined,
+  horizonDays: number | null | undefined,
+): string | undefined {
+  if (!entryDate || horizonDays == null) return undefined;
+  return addDays(entryDate, horizonDays);
 }
 
 export function sessionOnOrAfter(
@@ -60,18 +72,9 @@ function directionEquity(
   return direction === "long" ? ratio : 2 - ratio;
 }
 
-function lastSessionAfter(
-  sessions: Session[],
-  date: string,
-): Session | undefined {
-  return [...sessions].reverse().find((s) => s.date > date);
-}
-
 /**
- * Resolve one call. The hold starts at the first session after publish.
- * Completed when a session exists after entry on/after that hold; otherwise
- * open with the latest close. If the horizon has passed but bars stop early,
- * the last session after entry is used as an early exit.
+ * Resolve one call. Entry is the first session after publish. Mark-to-market
+ * through the latest session (today). Spoken horizonDays is not an exit.
  */
 export function resolveCall(
   call: Pick<ExtractedCall, "symbol" | "direction" | "horizonDays">,
@@ -82,7 +85,7 @@ export function resolveCall(
   const base = {
     symbol: call.symbol,
     direction: call.direction,
-    horizonDays: call.horizonDays,
+    horizonDays: call.horizonDays ?? null,
   };
 
   const entry = sessionAfter(sessions, publishedOn);
@@ -90,55 +93,23 @@ export function resolveCall(
     return {
       ...base,
       status: "unresolved",
-      message: "No price sessions after the video publish date.",
+      message: `No price data for ${call.symbol} after ${publishedOn}. The ticker may be wrong or not in our US daily feed.`,
     };
   }
 
-  const horizonDate = addDays(entry.date, call.horizonDays);
-  const today = new Date().toISOString().slice(0, 10);
-  const horizonPassed = horizonDate <= today;
-  const atHorizon = sessionOnOrAfter(sessions, horizonDate);
-  const nextAfterEntry = sessionAfter(sessions, entry.date);
-
-  let status: "completed" | "open";
-  let exit: Session;
-  let message: string | undefined;
-  let scoreHit = true;
-
-  if (horizonPassed) {
-    if (atHorizon && atHorizon.date > entry.date) {
-      status = "completed";
-      exit = atHorizon;
-    } else if (nextAfterEntry) {
-      status = "completed";
-      exit = lastSessionAfter(sessions, entry.date) ?? nextAfterEntry;
-      message =
-        "No price bars through the horizon date; using the last available session.";
-      scoreHit = false;
-    } else {
-      return {
-        ...base,
-        status: "unresolved",
-        message:
-          "Horizon has passed, but there is no later trading day after entry to exit on.",
-        entryDate: entry.date,
-        entryPrice: entry.open,
-      };
-    }
-  } else {
-    const latest = [...sessions].reverse().find((s) => s.date >= entry.date);
-    if (!latest) {
-      return {
-        ...base,
-        status: "unresolved",
-        message: "Not enough price history after entry.",
-        entryDate: entry.date,
-        entryPrice: entry.open,
-      };
-    }
-    status = "open";
-    exit = latest;
+  const latest = [...sessions].reverse().find((s) => s.date >= entry.date);
+  if (!latest) {
+    return {
+      ...base,
+      status: "unresolved",
+      message: "Not enough price history after entry.",
+      entryDate: entry.date,
+      entryPrice: entry.open,
+    };
   }
+
+  const status = "open" as const;
+  const exit = latest;
 
   const benchEntry = sessionOnOrAfter(benchmark, entry.date);
   const benchExit = sessionOnOrAfter(benchmark, exit.date);
@@ -153,10 +124,13 @@ export function resolveCall(
   }
 
   const exitPrice = exit.close;
+  const priceReturn = exitPrice / entry.open - 1;
+  const spyReturn = benchExit.close / benchEntry.open - 1;
   const abs = absoluteReturn(call.direction, entry.open, exitPrice);
-  const rawExcess =
-    exitPrice / entry.open - 1 - (benchExit.close / benchEntry.open - 1);
-  const excess = call.direction === "long" ? rawExcess : -rawExcess;
+  const excess =
+    call.direction === "long"
+      ? priceReturn - spyReturn
+      : spyReturn - priceReturn;
 
   return {
     ...base,
@@ -165,10 +139,11 @@ export function resolveCall(
     exitDate: exit.date,
     entryPrice: entry.open,
     exitPrice,
+    priceReturn,
+    spyReturn,
     absoluteReturn: abs,
     excessReturn: excess,
-    hit: status === "completed" && scoreHit ? excess > 0 : undefined,
-    message,
+    hit: excess > 0,
   };
 }
 
@@ -354,15 +329,12 @@ export function backtestCalls(
   return { results, series: buildBookSeries(actives, benchmark) };
 }
 
-/** Inclusive date window covering publish → max horizon (plus a buffer for sessions). */
+/** Inclusive date window covering publish through today. */
 export function barsWindow(
   publishedOn: string,
-  calls: ExtractedCall[],
+  _calls: ExtractedCall[],
 ): { start: string; end: string } {
-  const maxHorizon = calls.reduce((m, c) => Math.max(m, c.horizonDays), 1);
   const today = new Date().toISOString().slice(0, 10);
-  const horizonEnd = addDays(publishedOn, maxHorizon + 21);
-  const end = horizonEnd > today ? today : horizonEnd;
   const start = addDays(publishedOn, -7);
-  return { start, end: end < start ? start : end };
+  return { start, end: today < start ? start : today };
 }

@@ -36,33 +36,28 @@ function readStoredAnalyze(videoId: string): AnalyzeState | null {
 
 function VideoBookSummary({ results }: { results: CallResult[] }) {
   const scored = results.filter((r) => r.absoluteReturn != null);
-  const completed = results.filter((r) => r.status === "completed");
-  const open = results.filter((r) => r.status === "open");
   const unresolved = results.filter((r) => r.status === "unresolved");
-  const avgAbs =
+  const avgTrade =
     scored.length > 0
       ? scored.reduce((s, r) => s + (r.absoluteReturn ?? 0), 0) / scored.length
       : undefined;
-  const avgExcess =
+  const avgSpy =
     scored.length > 0
-      ? scored.reduce((s, r) => s + (r.excessReturn ?? 0), 0) / scored.length
+      ? scored.reduce((s, r) => s + (r.spyReturn ?? 0), 0) / scored.length
       : undefined;
-  const hits = completed.filter((r) => r.hit).length;
+  const hits = scored.filter((r) => r.hit).length;
 
   return (
     <div className="space-y-1 text-sm">
-      <p className="font-medium">This video’s recommendations</p>
+      <p className="font-medium">This video’s upside ideas</p>
       <p>
-        Avg absolute <Pct n={avgAbs} />
+        Avg <Pct n={avgTrade} />
         {" · "}
-        avg vs SPY <Pct n={avgExcess} />
-        {completed.length > 0 ? (
+        avg SPY <Pct n={avgSpy} />
+        {scored.length > 0 ? (
           <span className="text-mute">
-            {` · hit rate ${hits}/${completed.length}`}
+            {` · beating SPY ${hits}/${scored.length}`}
           </span>
-        ) : null}
-        {open.length > 0 ? (
-          <span className="text-mute">{` · ${open.length} still open`}</span>
         ) : null}
         {unresolved.length > 0 ? (
           <span className="text-mute">
@@ -121,10 +116,10 @@ export function AnalyzeForm({
   return (
     <section className="space-y-4 border-t border-line pt-6">
       <div>
-        <h2 className="font-medium">Extract trade calls</h2>
+        <h2 className="font-medium">Extract upside ideas</h2>
         <p className="mt-1 text-sm text-mute">
-          Fetch the transcript and pull out actionable long/short calls with
-          supporting quotes.
+          Fetch the transcript and pull out stock ideas you could buy as
+          shares, with supporting quotes. Shorts and options are skipped.
         </p>
       </div>
 
@@ -135,7 +130,7 @@ export function AnalyzeForm({
           disabled={analyzePending}
           className="border border-ink bg-ink px-3 py-1.5 text-sm text-paper hover:bg-paper hover:text-ink disabled:opacity-50"
         >
-          {analyzePending ? "Analyzing…" : "Transcribe & extract trades"}
+          {analyzePending ? "Analyzing…" : "Transcribe & extract ideas"}
         </button>
       </form>
 
@@ -153,7 +148,7 @@ export function AnalyzeForm({
 
           {displayAnalyze.calls.length === 0 ? (
             <p className="text-sm text-mute">
-              No actionable trade calls were found in this video.
+              No upside stock ideas were found in this video.
             </p>
           ) : (
             <>
@@ -171,8 +166,8 @@ export function AnalyzeForm({
                     : "How did this video do?"}
                 </button>
                 <p className="text-sm text-mute">
-                  See how this video’s recommendations matured as a book,
-                  versus SPY.
+                  See how this video’s upside ideas did from publish through
+                  today, versus SPY.
                 </p>
               </form>
 
@@ -197,12 +192,11 @@ export function AnalyzeForm({
                             <span className="font-medium">
                               {formatCallName(call)}
                             </span>
-                            <span className="text-sm uppercase text-mute">
-                              {call.direction}
-                            </span>
-                            <span className="text-sm text-mute">
-                              ~{call.horizonDays}d horizon
-                            </span>
+                            {call.horizonDays != null ? (
+                              <span className="text-sm text-mute">
+                                ~{call.horizonDays}d recommended
+                              </span>
+                            ) : null}
                           </div>
                           <p className="mt-2 text-sm">{call.rationale}</p>
                           <blockquote className="mt-2 border-l-2 border-line pl-3 text-sm text-mute">
@@ -249,11 +243,7 @@ export function AnalyzeForm({
                         backtestState.series.length - 1
                       ]?.date
                     }
-                    exitLabel={
-                      backtestState.results.some((r) => r.status === "open")
-                        ? "As of"
-                        : "Exit"
-                    }
+                    exitLabel="As of"
                   />
                   {backtestState.results.some(
                     (r) => r.status === "unresolved",

@@ -9,15 +9,18 @@ export function BacktestChart({
   series,
   tradeLabel,
   entryDate,
-  exitDate,
-  exitLabel,
+  exitDate: _exitDate,
+  exitLabel = "As of",
+  horizonDate,
 }: {
   series: ChartPoint[];
   tradeLabel: string;
   entryDate?: string;
   exitDate?: string;
-  /** e.g. "Exit" or "As of" */
+  /** e.g. "As of" */
   exitLabel?: string;
+  /** Spoken hold; drawn when it falls inside the series. */
+  horizonDate?: string;
 }) {
   const [hover, setHover] = useState<Hover | null>(null);
 
@@ -55,9 +58,9 @@ export function BacktestChart({
   const entryIdx = entryDate
     ? series.findIndex((p) => p.date === entryDate)
     : 0;
-  const exitIdx = exitDate
-    ? series.findIndex((p) => p.date === exitDate)
-    : series.length - 1;
+  const horizonIdx = horizonDate
+    ? series.findIndex((p) => p.date >= horizonDate)
+    : -1;
 
   const ticks = [yMin, (yMin + yMax) / 2, yMax];
   const point = hover ? series[hover.idx] : null;
@@ -153,16 +156,26 @@ export function BacktestChart({
               strokeWidth={1}
             />
           ) : null}
-          {exitIdx >= 0 ? (
-            <line
-              x1={xAt(exitIdx)}
-              x2={xAt(exitIdx)}
-              y1={pad.top}
-              y2={height - pad.bottom}
-              stroke="currentColor"
-              className="text-line"
-              strokeWidth={1}
-            />
+          {horizonIdx > 0 && horizonIdx < series.length - 1 ? (
+            <g>
+              <line
+                x1={xAt(horizonIdx)}
+                x2={xAt(horizonIdx)}
+                y1={pad.top}
+                y2={height - pad.bottom}
+                className="stroke-mute"
+                strokeWidth={1}
+                strokeDasharray="3 3"
+              />
+              <text
+                x={xAt(horizonIdx) + 4}
+                y={pad.top + 10}
+                className="fill-mute"
+                fontSize={9}
+              >
+                Recommended
+              </text>
+            </g>
           ) : null}
 
           {hover && point ? (

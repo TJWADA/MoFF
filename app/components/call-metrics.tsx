@@ -21,7 +21,7 @@ export function Pct({ n }: { n: number | undefined }) {
 
 function statusLabel(status: CallResult["status"]): string {
   if (status === "completed") return "Completed";
-  if (status === "open") return "In progress";
+  if (status === "open") return "As of today";
   return "Couldn’t resolve";
 }
 
@@ -40,10 +40,10 @@ export function CallMetrics({ result }: { result: CallResult }) {
       {result.status !== "unresolved" ? (
         <>
           <p>
-            Absolute <Pct n={result.absoluteReturn} />
+            {result.symbol} <Pct n={result.absoluteReturn} />
             {" · "}
-            vs SPY <Pct n={result.excessReturn} />
-            {result.status === "completed" && result.hit != null ? (
+            SPY <Pct n={result.spyReturn} />
+            {result.hit != null ? (
               <span
                 className={`font-medium ${
                   result.hit ? "text-up" : "text-danger"
@@ -51,9 +51,8 @@ export function CallMetrics({ result }: { result: CallResult }) {
               >
                 {` · ${result.hit ? "hit" : "miss"}`}
               </span>
-            ) : result.status === "open" ? (
-              <span className="text-mute"> · so far</span>
             ) : null}
+            <span className="text-mute"> · so far</span>
           </p>
           {result.message ? (
             <p className="text-mute">{result.message}</p>

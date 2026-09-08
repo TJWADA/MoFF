@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BacktestChart } from "@/app/components/backtest-chart";
 import { CallMetrics } from "@/app/components/call-metrics";
 import { parseCallParam } from "@/lib/call-param";
+import { recommendedHorizonDate } from "@/lib/backtest";
 import { evaluateCalls } from "@/lib/evaluate";
 import { formatCallName } from "@/lib/extract";
 import { fetchChannelProfile, fetchVideoMeta } from "@/lib/youtube";
@@ -20,13 +21,13 @@ export default async function TradePage({
   const q = (sp.q ?? "").trim();
   const videoHref = `/channel/${id}/video/${videoId}${q ? `?q=${encodeURIComponent(q)}` : ""}`;
 
-  const call = parseCallParam(sp.call);
+  const parsedCall = parseCallParam(sp.call);
   const ticker = decodeURIComponent(symbol).toUpperCase();
 
   if (
-    !call ||
-    call.symbol.toUpperCase() !== ticker ||
-    (sp.direction && call.direction !== sp.direction)
+    !parsedCall ||
+    parsedCall.symbol.toUpperCase() !== ticker ||
+    (sp.direction && parsedCall.direction !== sp.direction)
   ) {
     return (
       <div className="space-y-4">
@@ -43,6 +44,8 @@ export default async function TradePage({
       </div>
     );
   }
+
+  let call = parsedCall;
 
   let channelName = id;
   let videoTitle = videoId;
@@ -92,6 +95,7 @@ export default async function TradePage({
     const evaluated = await evaluateCalls([call], publishedAt, "trade");
     result = evaluated.results[0];
     series = evaluated.series;
+    if (evaluated.calls[0]) call = evaluated.calls[0];
   } catch (err) {
     error = err instanceof Error ? err.message : "Couldn’t check how this trade did.";
   }
@@ -108,10 +112,11 @@ export default async function TradePage({
       <section className="space-y-2">
         <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
           <h1 className="font-medium">{formatCallName(call)}</h1>
-          <span className="text-sm uppercase text-mute">{call.direction}</span>
-          <span className="text-sm text-mute">
-            ~{call.horizonDays}d horizon
-          </span>
+          {call.horizonDays != null ? (
+            <span className="text-sm text-mute">
+              ~{call.horizonDays}d recommended
+            </span>
+          ) : null}
         </div>
         <p className="text-sm text-mute">
           {channelName}
@@ -130,10 +135,14 @@ export default async function TradePage({
           <CallMetrics result={result} />
           <BacktestChart
             series={series ?? []}
-            tradeLabel={`${formatCallName(call)} ${call.direction}`}
+            tradeLabel={formatCallName(call)}
             entryDate={result.entryDate}
             exitDate={result.exitDate}
-            exitLabel={result.status === "open" ? "As of" : "Exit"}
+            exitLabel="As of"
+            horizonDate={recommendedHorizonDate(
+              result.entryDate,
+              call.horizonDays,
+            )}
           />
         </section>
       ) : null}
