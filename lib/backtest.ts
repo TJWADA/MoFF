@@ -60,9 +60,18 @@ function directionEquity(
   return direction === "long" ? ratio : 2 - ratio;
 }
 
+function lastSessionAfter(
+  sessions: Session[],
+  date: string,
+): Session | undefined {
+  return [...sessions].reverse().find((s) => s.date > date);
+}
+
 /**
- * Resolve one call. Completed when the horizon session exists; otherwise open
- * with the latest close when bars exist after entry.
+ * Resolve one call. The hold starts at the first session after publish.
+ * Completed when a session exists after entry on/after that hold; otherwise
+ * open with the latest close. If the horizon has passed but bars stop early,
+ * the last session after entry is used as an early exit.
  */
 export function resolveCall(
   call: Pick<ExtractedCall, "symbol" | "direction" | "horizonDays">,
@@ -85,26 +94,37 @@ export function resolveCall(
     };
   }
 
-  const horizonDate = addDays(publishedOn, call.horizonDays);
+  const horizonDate = addDays(entry.date, call.horizonDays);
   const today = new Date().toISOString().slice(0, 10);
   const horizonPassed = horizonDate <= today;
-  const horizonExit = sessionOnOrAfter(sessions, horizonDate);
+  const atHorizon = sessionOnOrAfter(sessions, horizonDate);
+  const nextAfterEntry = sessionAfter(sessions, entry.date);
 
   let status: "completed" | "open";
   let exit: Session;
+  let message: string | undefined;
+  let scoreHit = true;
 
   if (horizonPassed) {
-    if (!horizonExit || horizonExit.date <= entry.date) {
+    if (atHorizon && atHorizon.date > entry.date) {
+      status = "completed";
+      exit = atHorizon;
+    } else if (nextAfterEntry) {
+      status = "completed";
+      exit = lastSessionAfter(sessions, entry.date) ?? nextAfterEntry;
+      message =
+        "No price bars through the horizon date; using the last available session.";
+      scoreHit = false;
+    } else {
       return {
         ...base,
         status: "unresolved",
-        message: "Horizon has passed but no usable exit session.",
+        message:
+          "Horizon has passed, but there is no later trading day after entry to exit on.",
         entryDate: entry.date,
         entryPrice: entry.open,
       };
     }
-    status = "completed";
-    exit = horizonExit;
   } else {
     const latest = [...sessions].reverse().find((s) => s.date >= entry.date);
     if (!latest) {
@@ -147,7 +167,8 @@ export function resolveCall(
     exitPrice,
     absoluteReturn: abs,
     excessReturn: excess,
-    hit: status === "completed" ? excess > 0 : undefined,
+    hit: status === "completed" && scoreHit ? excess > 0 : undefined,
+    message,
   };
 }
 
@@ -340,7 +361,7 @@ export function barsWindow(
 ): { start: string; end: string } {
   const maxHorizon = calls.reduce((m, c) => Math.max(m, c.horizonDays), 1);
   const today = new Date().toISOString().slice(0, 10);
-  const horizonEnd = addDays(publishedOn, maxHorizon + 14);
+  const horizonEnd = addDays(publishedOn, maxHorizon + 21);
   const end = horizonEnd > today ? today : horizonEnd;
   const start = addDays(publishedOn, -7);
   return { start, end: end < start ? start : end };

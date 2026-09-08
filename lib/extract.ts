@@ -3,6 +3,7 @@ import { envKey } from "./env";
 
 export const ExtractedCall = z.object({
   symbol: z.string(),
+  companyName: z.string(),
   direction: z.enum(["long", "short"]),
   horizonDays: z.number().int().min(1).max(730),
   rationale: z.string(),
@@ -23,7 +24,8 @@ Rules:
 - Do NOT extract: general market commentary with no ticker, news recaps, hypotheticals, descriptions of what someone else thinks, or "I might look at this".
 - A ticker mentioned only in passing is not a call.
 - Prefer fewer, higher-quality calls. Returning an empty list is correct and common.
-- The quote must be copied verbatim from the transcript.`;
+- The quote must be copied verbatim from the transcript.
+- companyName is the short everyday name (Alibaba, Nvidia, Boeing), not the legal entity name and not the ticker.`;
 
 function sane(calls: ExtractedCall[]): ExtractedCall[] {
   const seen = new Set<string>();
@@ -34,8 +36,21 @@ function sane(calls: ExtractedCall[]): ExtractedCall[] {
     if (seen.has(key)) return false;
     seen.add(key);
     c.symbol = symbol;
+    const name = (c.companyName ?? "")
+      .trim()
+      .replace(/\s+/g, " ")
+      .replace(new RegExp(`\\s*\\(${symbol}\\)\\s*$`, "i"), "")
+      .trim();
+    c.companyName = name.toUpperCase() === symbol ? "" : name;
     return true;
   });
+}
+
+export function formatCallName(
+  call: Pick<ExtractedCall, "symbol"> & { companyName?: string },
+): string {
+  const name = (call.companyName ?? "").trim();
+  return name ? `${name} (${call.symbol})` : call.symbol;
 }
 
 export async function extractCalls(

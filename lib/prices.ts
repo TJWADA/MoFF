@@ -30,7 +30,7 @@ export async function fetchBars(
   const keys = alpacaKeys();
   if (!keys) {
     throw new Error(
-      "ALPACA_API_KEY_ID and ALPACA_API_SECRET_KEY are required for backtests. Add them to .env.local.",
+      "ALPACA_API_KEY_ID and ALPACA_API_SECRET_KEY are required to check how trades did. Add them to .env.local.",
     );
   }
 

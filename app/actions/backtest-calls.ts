@@ -1,14 +1,8 @@
 "use server";
 
-import {
-  backtestCalls,
-  barsWindow,
-  type CallResult,
-  type ChartPoint,
-  BENCHMARK,
-} from "@/lib/backtest";
+import type { CallResult, ChartPoint } from "@/lib/backtest";
+import { evaluateCalls } from "@/lib/evaluate";
 import { ExtractedCall } from "@/lib/extract";
-import { fetchBars } from "@/lib/prices";
 import { z } from "zod";
 
 export type BacktestState =
@@ -24,6 +18,7 @@ export type BacktestState =
 
 const CallSchema = z.object({
   symbol: z.string(),
+  companyName: z.string().optional().default(""),
   direction: z.enum(["long", "short"]),
   horizonDays: z.number().int().min(1).max(730),
   rationale: z.string(),
@@ -54,19 +49,20 @@ export async function runBacktest(
   }
 
   if (calls.length === 0) {
-    return { status: "error", message: "No calls to backtest." };
+    return { status: "error", message: "No calls to check." };
   }
 
   try {
-    const { start, end } = barsWindow(publishedAt, calls);
-    const symbols = [...new Set(calls.map((c) => c.symbol)), BENCHMARK];
-    const bars = await fetchBars(symbols, start, end);
-    const { results, series } = backtestCalls(calls, publishedAt, bars, mode);
+    const { results, series } = await evaluateCalls(
+      calls,
+      publishedAt,
+      mode,
+    );
     return { status: "done", mode, results, series, focusKey };
   } catch (err) {
     return {
       status: "error",
-      message: err instanceof Error ? err.message : "Backtest failed.",
+      message: err instanceof Error ? err.message : "Couldn’t check how these trades did.",
     };
   }
 }
