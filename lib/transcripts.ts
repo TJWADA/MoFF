@@ -1,40 +1,31 @@
-import { liveKey } from "./env";
-import { fixtureTranscripts } from "./fixtures";
+import { envKey } from "./env";
 
 export type FetchedTranscript = { text: string; provider: string };
 
-/**
- * Scraping transcripts from a datacenter IP largely does not work any more --
- * YouTube gates subtitle requests behind PO Tokens, and yt-dlp, youtubei.js and
- * youtube-transcript-api all fail or are unreliable from cloud hosts. So the
- * live path buys them. Transcripts never change, so a video is fetched at most
- * once and cached in the database forever.
- */
 export async function fetchTranscript(
   videoId: string,
-): Promise<FetchedTranscript | undefined> {
-  const key = liveKey("SUPADATA_API_KEY");
-
-  if (key) {
-    try {
-      const url = new URL("https://api.supadata.ai/v1/youtube/transcript");
-      url.searchParams.set("videoId", videoId);
-      url.searchParams.set("text", "true");
-
-      const res = await fetch(url, { headers: { "x-api-key": key } });
-      if (res.ok) {
-        const body = (await res.json()) as { content?: string };
-        if (body.content?.trim()) {
-          return { text: body.content, provider: "supadata" };
-        }
-      } else {
-        console.warn(`  transcript ${videoId}: HTTP ${res.status}`);
-      }
-    } catch (err) {
-      console.warn(`  transcript ${videoId}: ${(err as Error).message}`);
-    }
+): Promise<FetchedTranscript> {
+  const key = envKey("SUPADATA_API_KEY");
+  if (!key) {
+    throw new Error(
+      "SUPADATA_API_KEY is not set. Add it to .env.local to fetch transcripts.",
+    );
   }
 
-  const fixture = fixtureTranscripts()[videoId];
-  return fixture ? { text: fixture.text, provider: fixture.provider } : undefined;
+  const url = new URL("https://api.supadata.ai/v1/youtube/transcript");
+  url.searchParams.set("videoId", videoId);
+  url.searchParams.set("text", "true");
+
+  const res = await fetch(url, { headers: { "x-api-key": key } });
+  if (!res.ok) {
+    throw new Error(`Transcript API returned HTTP ${res.status}`);
+  }
+
+  const body = (await res.json()) as { content?: string };
+  const text = body.content?.trim();
+  if (!text) {
+    throw new Error("No transcript text returned for this video.");
+  }
+
+  return { text, provider: "supadata" };
 }
