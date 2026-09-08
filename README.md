@@ -1,16 +1,19 @@
 # MoFF — Mixture of Finfluencers
 
-Rebuild in progress. The one-shot MVP is on the `archive/one-shot-mvp` branch.
+Web app for finding YouTube finance channels and backtesting the trade calls in their videos against SPY.
 
-Right now the app is only the first pipeline hop: **find a YouTuber and list their videos**.
+The one-shot MVP lives on `archive/one-shot-mvp`. This branch rebuilds the product as a linear flow.
 
-## What this slice does
+## What it does now
 
-1. You type a name, `@handle`, or channel URL.
-2. A handle or URL is resolved from the public channel page. A name is searched through YouTube's public web client (no Google Cloud API key).
-3. Opening a channel loads its Videos tab through that same client. Click a row to watch it.
+1. Search by name, `@handle`, or channel URL.
+2. Pick a channel and browse recent videos (with “view more”).
+3. Open a video, transcribe it, and extract actionable long/short calls.
+4. Backtest the whole video’s recommendations or a single trade; completed horizons show final results, open ones show mark-to-market so far, both charted vs SPY.
 
-Nothing is stored. Transcripts, call extraction, and scoring are not in this slice.
+YouTube discovery needs no API key. Transcripts need `SUPADATA_API_KEY`, extraction needs `OPENAI_API_KEY`, and backtests need `ALPACA_API_KEY_ID` / `ALPACA_API_SECRET_KEY` (see `.env.example`).
+
+Nothing is stored yet — results are computed on demand.
 
 ## Run it
 
@@ -20,4 +23,6 @@ pnpm dev          # http://localhost:3000
 pnpm typecheck
 ```
 
-No `.env` keys are required.
+## Disclaimer
+
+MoFF is a research project. Nothing here is financial advice, and no trades are placed on anyone’s behalf.
