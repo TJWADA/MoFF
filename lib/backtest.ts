@@ -8,12 +8,16 @@ export type Session = { date: string; open: number; close: number };
 export type CallResult = {
   symbol: string;
   direction: "long" | "short";
-  horizonDays: number;
+  horizonDays: number | null;
   status: "completed" | "open" | "unresolved";
   entryDate?: string;
   exitDate?: string;
   entryPrice?: number;
   exitPrice?: number;
+  /** Raw stock move over the window (exit/entry - 1), not direction-adjusted. */
+  priceReturn?: number;
+  /** SPY move over the same window. */
+  spyReturn?: number;
   absoluteReturn?: number;
   excessReturn?: number;
   hit?: boolean;
@@ -22,10 +26,48 @@ export type CallResult = {
 
 export type ChartPoint = { date: string; trade: number; spy: number };
 
+/** Unscaled daily prices for the trade chart (stock + SPY closes). */
+export type RawPricePoint = { date: string; stock: number; spy: number };
+
+export type ChartRange =
+  | "since"
+  | "1M"
+  | "3M"
+  | "6M"
+  | "1Y"
+  | "2Y"
+  | "5Y"
+  | "max";
+
+export type ChartUnit = "pct" | "usd";
+
+const RANGE_MONTHS: Record<Exclude<ChartRange, "since" | "max">, number> = {
+  "1M": 1,
+  "3M": 3,
+  "6M": 6,
+  "1Y": 12,
+  "2Y": 24,
+  "5Y": 60,
+};
+
 export function addDays(date: string, days: number): string {
   const d = new Date(`${date}T00:00:00Z`);
   d.setUTCDate(d.getUTCDate() + days);
   return d.toISOString().slice(0, 10);
+}
+
+export function addMonths(date: string, months: number): string {
+  const d = new Date(`${date}T00:00:00Z`);
+  d.setUTCMonth(d.getUTCMonth() + months);
+  return d.toISOString().slice(0, 10);
+}
+
+export function recommendedHorizonDate(
+  entryDate: string | undefined,
+  horizonDays: number | null | undefined,
+): string | undefined {
+  if (!entryDate || horizonDays == null) return undefined;
+  return addDays(entryDate, horizonDays);
 }
 
 export function sessionOnOrAfter(
@@ -61,8 +103,8 @@ function directionEquity(
 }
 
 /**
- * Resolve one call. Completed when the horizon session exists; otherwise open
- * with the latest close when bars exist after entry.
+ * Resolve one call. Entry is the first session after publish. Mark-to-market
+ * through the latest session (today). Spoken horizonDays is not an exit.
  */
 export function resolveCall(
   call: Pick<ExtractedCall, "symbol" | "direction" | "horizonDays">,
@@ -73,7 +115,7 @@ export function resolveCall(
   const base = {
     symbol: call.symbol,
     direction: call.direction,
-    horizonDays: call.horizonDays,
+    horizonDays: call.horizonDays ?? null,
   };
 
   const entry = sessionAfter(sessions, publishedOn);
@@ -81,44 +123,23 @@ export function resolveCall(
     return {
       ...base,
       status: "unresolved",
-      message: "No price sessions after the video publish date.",
+      message: `No price data for ${call.symbol} after ${publishedOn}. The ticker may be wrong or not in our US daily feed.`,
     };
   }
 
-  const horizonDate = addDays(publishedOn, call.horizonDays);
-  const today = new Date().toISOString().slice(0, 10);
-  const horizonPassed = horizonDate <= today;
-  const horizonExit = sessionOnOrAfter(sessions, horizonDate);
-
-  let status: "completed" | "open";
-  let exit: Session;
-
-  if (horizonPassed) {
-    if (!horizonExit || horizonExit.date <= entry.date) {
-      return {
-        ...base,
-        status: "unresolved",
-        message: "Horizon has passed but no usable exit session.",
-        entryDate: entry.date,
-        entryPrice: entry.open,
-      };
-    }
-    status = "completed";
-    exit = horizonExit;
-  } else {
-    const latest = [...sessions].reverse().find((s) => s.date >= entry.date);
-    if (!latest) {
-      return {
-        ...base,
-        status: "unresolved",
-        message: "Not enough price history after entry.",
-        entryDate: entry.date,
-        entryPrice: entry.open,
-      };
-    }
-    status = "open";
-    exit = latest;
+  const latest = [...sessions].reverse().find((s) => s.date >= entry.date);
+  if (!latest) {
+    return {
+      ...base,
+      status: "unresolved",
+      message: "Not enough price history after entry.",
+      entryDate: entry.date,
+      entryPrice: entry.open,
+    };
   }
+
+  const status = "open" as const;
+  const exit = latest;
 
   const benchEntry = sessionOnOrAfter(benchmark, entry.date);
   const benchExit = sessionOnOrAfter(benchmark, exit.date);
@@ -133,10 +154,13 @@ export function resolveCall(
   }
 
   const exitPrice = exit.close;
+  const priceReturn = exitPrice / entry.open - 1;
+  const spyReturn = benchExit.close / benchEntry.open - 1;
   const abs = absoluteReturn(call.direction, entry.open, exitPrice);
-  const rawExcess =
-    exitPrice / entry.open - 1 - (benchExit.close / benchEntry.open - 1);
-  const excess = call.direction === "long" ? rawExcess : -rawExcess;
+  const excess =
+    call.direction === "long"
+      ? priceReturn - spyReturn
+      : spyReturn - priceReturn;
 
   return {
     ...base,
@@ -145,9 +169,11 @@ export function resolveCall(
     exitDate: exit.date,
     entryPrice: entry.open,
     exitPrice,
+    priceReturn,
+    spyReturn,
     absoluteReturn: abs,
     excessReturn: excess,
-    hit: status === "completed" ? excess > 0 : undefined,
+    hit: excess > 0,
   };
 }
 
@@ -213,6 +239,118 @@ export function buildTradeSeries(
   }
 
   return points;
+}
+
+/**
+ * Full overlapping stock/SPY history for the trade chart. Entry day uses open
+ * so it matches scoring; every other day uses close.
+ */
+export function buildRawTradeSeries(
+  result: CallResult,
+  sessions: Session[],
+  benchmark: Session[],
+): RawPricePoint[] {
+  if (
+    !result.entryDate ||
+    result.entryPrice == null ||
+    result.status === "unresolved"
+  ) {
+    return [];
+  }
+
+  const benchByDate = new Map(benchmark.map((s) => [s.date, s]));
+  const benchEntry = sessionOnOrAfter(benchmark, result.entryDate);
+  const points: RawPricePoint[] = [];
+
+  for (const s of sessions) {
+    const bench = benchByDate.get(s.date);
+    if (!bench) continue;
+    const stock =
+      s.date === result.entryDate ? result.entryPrice : s.close;
+    const spy =
+      s.date === result.entryDate
+        ? (benchEntry?.open ?? bench.open)
+        : bench.close;
+    points.push({
+      date: s.date,
+      stock: Math.round(stock * 1e6) / 1e6,
+      spy: Math.round(spy * 1e6) / 1e6,
+    });
+  }
+
+  return points;
+}
+
+export function slicePrices(
+  prices: RawPricePoint[],
+  range: ChartRange,
+  entryDate: string | undefined,
+): RawPricePoint[] {
+  if (prices.length === 0) return [];
+  const end = prices[prices.length - 1].date;
+  let start: string;
+  if (range === "since") {
+    start = entryDate && entryDate <= end ? entryDate : prices[0].date;
+  } else if (range === "max") {
+    start = prices[0].date;
+  } else {
+    start = addMonths(end, -RANGE_MONTHS[range]);
+  }
+  return prices.filter((p) => p.date >= start && p.date <= end);
+}
+
+export function scalePrices(
+  sliced: RawPricePoint[],
+  range: ChartRange,
+  unit: ChartUnit,
+  entryDate: string | undefined,
+  entryPrice: number | undefined,
+  allPrices: RawPricePoint[],
+): ChartPoint[] {
+  if (sliced.length === 0) return [];
+
+  const entryPt = entryDate
+    ? allPrices.find((p) => p.date === entryDate)
+    : undefined;
+  const stockEntry = entryPrice ?? entryPt?.stock;
+  const spyEntry = entryPt?.spy;
+
+  if (unit === "usd") {
+    if (stockEntry == null || spyEntry == null || spyEntry === 0) {
+      return sliced.map((p) => ({
+        date: p.date,
+        trade: p.stock,
+        spy: p.spy,
+      }));
+    }
+    return sliced.map((p) => ({
+      date: p.date,
+      trade: p.stock,
+      spy: stockEntry * (p.spy / spyEntry),
+    }));
+  }
+
+  if (
+    range === "since" &&
+    stockEntry != null &&
+    spyEntry != null &&
+    stockEntry !== 0 &&
+    spyEntry !== 0
+  ) {
+    return sliced.map((p) => ({
+      date: p.date,
+      trade: (p.stock / stockEntry) * 100,
+      spy: (p.spy / spyEntry) * 100,
+    }));
+  }
+
+  const first = sliced[0];
+  if (first.stock === 0 || first.spy === 0) return [];
+  return sliced.map((p) => ({
+    date: p.date,
+    trade: (p.stock / first.stock) * 100,
+    spy: (p.spy / first.spy) * 100,
+  }));
 }
 
 type ActiveCall = {
@@ -283,7 +421,11 @@ export function backtestCalls(
   publishedOn: string,
   bars: BarRow[],
   mode: "video" | "trade",
-): { results: CallResult[]; series: ChartPoint[] } {
+): {
+  results: CallResult[];
+  series: ChartPoint[];
+  prices?: RawPricePoint[];
+} {
   const bySymbol = barsBySymbol(bars);
   const benchmark = sessionsFor(bySymbol, BENCHMARK);
 
@@ -299,14 +441,11 @@ export function backtestCalls(
   if (mode === "trade" && calls.length === 1) {
     const call = calls[0];
     const result = results[0];
+    const sessions = sessionsFor(bySymbol, call.symbol);
     return {
       results,
-      series: buildTradeSeries(
-        call,
-        result,
-        sessionsFor(bySymbol, call.symbol),
-        benchmark,
-      ),
+      series: buildTradeSeries(call, result, sessions, benchmark),
+      prices: buildRawTradeSeries(result, sessions, benchmark),
     };
   }
 
@@ -333,15 +472,17 @@ export function backtestCalls(
   return { results, series: buildBookSeries(actives, benchmark) };
 }
 
-/** Inclusive date window covering publish → max horizon (plus a buffer for sessions). */
+/** Inclusive date window for price bars. Trade mode pulls ~20y so the chart can look back. */
 export function barsWindow(
   publishedOn: string,
-  calls: ExtractedCall[],
+  _calls: ExtractedCall[],
+  mode: "video" | "trade" = "video",
 ): { start: string; end: string } {
-  const maxHorizon = calls.reduce((m, c) => Math.max(m, c.horizonDays), 1);
   const today = new Date().toISOString().slice(0, 10);
-  const horizonEnd = addDays(publishedOn, maxHorizon + 14);
-  const end = horizonEnd > today ? today : horizonEnd;
+  if (mode === "trade") {
+    const start = addDays(today, -(365 * 20 + 7));
+    return { start, end: today < start ? start : today };
+  }
   const start = addDays(publishedOn, -7);
-  return { start, end: end < start ? start : end };
+  return { start, end: today < start ? start : today };
 }

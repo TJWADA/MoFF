@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
+import Link from "next/link";
 import {
   analyzeVideo,
   type AnalyzeState,
@@ -10,91 +11,74 @@ import {
   type BacktestState,
 } from "@/app/actions/backtest-calls";
 import { BacktestChart } from "@/app/components/backtest-chart";
+import { CallMetrics, Pct } from "@/app/components/call-metrics";
 import type { CallResult } from "@/lib/backtest";
+import { tradeHref } from "@/lib/call-param";
+import { formatCallName } from "@/lib/extract";
 
 const analyzeInitial: AnalyzeState = { status: "idle" };
 const backtestInitial: BacktestState = { status: "idle" };
 
-function pct(n: number | undefined): string {
-  if (n == null || Number.isNaN(n)) return "—";
-  const sign = n > 0 ? "+" : "";
-  return `${sign}${(n * 100).toFixed(1)}%`;
+function storageKey(videoId: string) {
+  return `moff:analyze:${videoId}`;
 }
 
-function statusLabel(status: CallResult["status"]): string {
-  if (status === "completed") return "Completed";
-  if (status === "open") return "In progress";
-  return "Couldn’t resolve";
-}
-
-function CallMetrics({ result }: { result: CallResult }) {
-  return (
-    <div className="space-y-1 text-sm">
-      <p>
-        <span className="font-medium">{statusLabel(result.status)}</span>
-        {result.entryDate && result.exitDate ? (
-          <span className="text-mute">
-            {" "}
-            · {result.entryDate} → {result.exitDate}
-          </span>
-        ) : null}
-      </p>
-      {result.status !== "unresolved" ? (
-        <p className="text-mute">
-          Absolute {pct(result.absoluteReturn)}
-          {" · "}
-          vs SPY {pct(result.excessReturn)}
-          {result.status === "completed" && result.hit != null
-            ? ` · ${result.hit ? "hit" : "miss"}`
-            : result.status === "open"
-              ? " · so far"
-              : ""}
-        </p>
-      ) : (
-        <p className="text-danger">{result.message}</p>
-      )}
-    </div>
-  );
+function readStoredAnalyze(videoId: string): AnalyzeState | null {
+  try {
+    const raw = sessionStorage.getItem(storageKey(videoId));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as AnalyzeState;
+    return parsed.status === "done" ? parsed : null;
+  } catch {
+    return null;
+  }
 }
 
 function VideoBookSummary({ results }: { results: CallResult[] }) {
   const scored = results.filter((r) => r.absoluteReturn != null);
-  const completed = results.filter((r) => r.status === "completed");
-  const open = results.filter((r) => r.status === "open");
   const unresolved = results.filter((r) => r.status === "unresolved");
-  const avgAbs =
+  const avgTrade =
     scored.length > 0
       ? scored.reduce((s, r) => s + (r.absoluteReturn ?? 0), 0) / scored.length
       : undefined;
-  const avgExcess =
+  const avgSpy =
     scored.length > 0
-      ? scored.reduce((s, r) => s + (r.excessReturn ?? 0), 0) / scored.length
+      ? scored.reduce((s, r) => s + (r.spyReturn ?? 0), 0) / scored.length
       : undefined;
-  const hits = completed.filter((r) => r.hit).length;
+  const hits = scored.filter((r) => r.hit).length;
 
   return (
     <div className="space-y-1 text-sm">
-      <p className="font-medium">This video’s recommendations</p>
-      <p className="text-mute">
-        Avg absolute {pct(avgAbs)} · avg vs SPY {pct(avgExcess)}
-        {completed.length > 0
-          ? ` · hit rate ${hits}/${completed.length}`
-          : ""}
-        {open.length > 0 ? ` · ${open.length} still open` : ""}
-        {unresolved.length > 0
-          ? ` · ${unresolved.length} unresolved`
-          : ""}
+      <p className="font-medium">This video’s upside ideas</p>
+      <p>
+        Avg <Pct n={avgTrade} />
+        {" · "}
+        avg SPY <Pct n={avgSpy} />
+        {scored.length > 0 ? (
+          <span className="text-mute">
+            {` · beating SPY ${hits}/${scored.length}`}
+          </span>
+        ) : null}
+        {unresolved.length > 0 ? (
+          <span className="text-mute">
+            {` · ${unresolved.length} unresolved`}
+          </span>
+        ) : null}
       </p>
     </div>
   );
 }
 
 export function AnalyzeForm({
+  channelId,
   videoId,
   publishedAt,
+  searchQuery = "",
 }: {
+  channelId: string;
   videoId: string;
   publishedAt: string;
+  searchQuery?: string;
 }) {
   const [analyzeState, analyzeAction, analyzePending] = useActionState(
     analyzeVideo,
@@ -104,20 +88,38 @@ export function AnalyzeForm({
     runBacktest,
     backtestInitial,
   );
-  const [focusKey, setFocusKey] = useState<string | null>(null);
+  const [storedAnalyze, setStoredAnalyze] = useState<AnalyzeState | null>(
+    null,
+  );
+
+  useEffect(() => {
+    setStoredAnalyze(readStoredAnalyze(videoId));
+  }, [videoId]);
+
+  useEffect(() => {
+    if (analyzeState.status === "done") {
+      sessionStorage.setItem(storageKey(videoId), JSON.stringify(analyzeState));
+      setStoredAnalyze(analyzeState);
+    }
+  }, [analyzeState, videoId]);
+
+  const displayAnalyze =
+    analyzeState.status === "idle" && storedAnalyze
+      ? storedAnalyze
+      : analyzeState;
 
   const callsJson =
-    analyzeState.status === "done"
-      ? JSON.stringify(analyzeState.calls)
+    displayAnalyze.status === "done"
+      ? JSON.stringify(displayAnalyze.calls)
       : "[]";
 
   return (
     <section className="space-y-4 border-t border-line pt-6">
       <div>
-        <h2 className="font-medium">Extract trade calls</h2>
+        <h2 className="font-medium">Extract upside ideas</h2>
         <p className="mt-1 text-sm text-mute">
-          Fetch the transcript and pull out actionable long/short calls with
-          supporting quotes.
+          Fetch the transcript and pull out stock ideas you could buy as
+          shares, with supporting quotes. Shorts and options are skipped.
         </p>
       </div>
 
@@ -128,7 +130,7 @@ export function AnalyzeForm({
           disabled={analyzePending}
           className="border border-ink bg-ink px-3 py-1.5 text-sm text-paper hover:bg-paper hover:text-ink disabled:opacity-50"
         >
-          {analyzePending ? "Analyzing…" : "Transcribe & extract trades"}
+          {analyzePending ? "Analyzing…" : "Transcribe & extract ideas"}
         </button>
       </form>
 
@@ -136,17 +138,17 @@ export function AnalyzeForm({
         <p className="text-sm text-danger">{analyzeState.message}</p>
       ) : null}
 
-      {analyzeState.status === "done" ? (
+      {displayAnalyze.status === "done" ? (
         <div className="space-y-4">
           <p className="text-sm text-mute">
-            Model: {analyzeState.model}. {analyzeState.calls.length} call
-            {analyzeState.calls.length === 1 ? "" : "s"} found.
+            Model: {displayAnalyze.model}. {displayAnalyze.calls.length} call
+            {displayAnalyze.calls.length === 1 ? "" : "s"} found.
             {" · "}Published {publishedAt}
           </p>
 
-          {analyzeState.calls.length === 0 ? (
+          {displayAnalyze.calls.length === 0 ? (
             <p className="text-sm text-mute">
-              No actionable trade calls were found in this video.
+              No upside stock ideas were found in this video.
             </p>
           ) : (
             <>
@@ -157,103 +159,64 @@ export function AnalyzeForm({
                 <button
                   type="submit"
                   disabled={backtestPending}
-                  onClick={() => setFocusKey(null)}
                   className="border border-ink bg-ink px-3 py-1.5 text-sm text-paper hover:bg-paper hover:text-ink disabled:opacity-50"
                 >
-                  {backtestPending && !focusKey
-                    ? "Backtesting…"
-                    : "Backtest this video"}
+                  {backtestPending
+                    ? "Checking…"
+                    : "How did this video do?"}
                 </button>
                 <p className="text-sm text-mute">
-                  See how this video’s recommendations matured as a book,
-                  versus SPY.
+                  See how this video’s upside ideas did from publish through
+                  today, versus SPY.
                 </p>
               </form>
 
               <ul className="divide-y divide-line border-y border-line">
-                {analyzeState.calls.map((call) => {
+                {displayAnalyze.calls.map((call) => {
                   const key = `${call.symbol}-${call.direction}`;
                   const rowResult =
                     backtestState.status === "done" &&
-                    (backtestState.mode === "video" ||
-                      backtestState.focusKey === key)
+                    backtestState.mode === "video"
                       ? backtestState.results.find(
                           (r) =>
                             r.symbol === call.symbol &&
                             r.direction === call.direction,
                         )
                       : undefined;
-                  const showTradePanel =
-                    backtestState.status === "done" &&
-                    backtestState.mode === "trade" &&
-                    backtestState.focusKey === key;
 
                   return (
                     <li key={key} className="py-3">
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0 flex-1">
                           <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                            <span className="font-medium">{call.symbol}</span>
-                            <span className="text-sm uppercase text-mute">
-                              {call.direction}
+                            <span className="font-medium">
+                              {formatCallName(call)}
                             </span>
-                            <span className="text-sm text-mute">
-                              ~{call.horizonDays}d horizon
-                            </span>
+                            {call.horizonDays != null ? (
+                              <span className="text-sm text-mute">
+                                ~{call.horizonDays}d recommended
+                              </span>
+                            ) : null}
                           </div>
                           <p className="mt-2 text-sm">{call.rationale}</p>
                           <blockquote className="mt-2 border-l-2 border-line pl-3 text-sm text-mute">
                             &ldquo;{call.quote}&rdquo;
                           </blockquote>
                         </div>
-                        <form action={backtestAction} className="shrink-0">
-                          <input type="hidden" name="mode" value="trade" />
-                          <input
-                            type="hidden"
-                            name="publishedAt"
-                            value={publishedAt}
-                          />
-                          <input
-                            type="hidden"
-                            name="calls"
-                            value={JSON.stringify([call])}
-                          />
-                          <input type="hidden" name="focusKey" value={key} />
-                          <button
-                            type="submit"
-                            disabled={backtestPending}
-                            onClick={() => setFocusKey(key)}
-                            className="border border-line px-2.5 py-1 text-sm text-mute hover:border-ink hover:text-ink disabled:opacity-50"
-                          >
-                            {backtestPending && focusKey === key
-                              ? "Checking…"
-                              : "How did this do?"}
-                          </button>
-                        </form>
+                        <Link
+                          href={tradeHref({
+                            channelId,
+                            videoId,
+                            call,
+                            q: searchQuery,
+                          })}
+                          className="shrink-0 border border-line px-2.5 py-1 text-sm text-mute hover:border-ink hover:text-ink"
+                        >
+                          Show Trade
+                        </Link>
                       </div>
 
-                      {showTradePanel ? (
-                        <div className="mt-4 space-y-3 border-t border-line pt-3">
-                          {backtestState.results[0] ? (
-                            <CallMetrics result={backtestState.results[0]} />
-                          ) : null}
-                          <BacktestChart
-                            series={backtestState.series}
-                            tradeLabel={`${call.symbol} ${call.direction}`}
-                            entryDate={backtestState.results[0]?.entryDate}
-                            exitDate={backtestState.results[0]?.exitDate}
-                            exitLabel={
-                              backtestState.results[0]?.status === "open"
-                                ? "As of"
-                                : "Exit"
-                            }
-                          />
-                        </div>
-                      ) : null}
-
-                      {backtestState.status === "done" &&
-                      backtestState.mode === "video" &&
-                      rowResult ? (
+                      {rowResult ? (
                         <div className="mt-3">
                           <CallMetrics result={rowResult} />
                         </div>
@@ -280,11 +243,7 @@ export function AnalyzeForm({
                         backtestState.series.length - 1
                       ]?.date
                     }
-                    exitLabel={
-                      backtestState.results.some((r) => r.status === "open")
-                        ? "As of"
-                        : "Exit"
-                    }
+                    exitLabel="As of"
                   />
                   {backtestState.results.some(
                     (r) => r.status === "unresolved",
@@ -309,7 +268,7 @@ export function AnalyzeForm({
               Transcript preview
             </summary>
             <p className="mt-2 whitespace-pre-wrap leading-relaxed">
-              {analyzeState.transcriptPreview}
+              {displayAnalyze.transcriptPreview}
             </p>
           </details>
         </div>

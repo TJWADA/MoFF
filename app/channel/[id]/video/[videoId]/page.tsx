@@ -88,11 +88,16 @@ export default async function VideoPage({
       </section>
 
       {publishedAt ? (
-        <AnalyzeForm videoId={videoId} publishedAt={publishedAt} />
+        <AnalyzeForm
+          channelId={id}
+          videoId={videoId}
+          publishedAt={publishedAt}
+          searchQuery={q}
+        />
       ) : (
         <p className="text-sm text-danger">
-          Could not determine this video&rsquo;s publish date, so backtests
-          are unavailable.
+          Could not determine this video&rsquo;s publish date, so we can&rsquo;t
+          check how its ideas did.
         </p>
       )}
     </div>

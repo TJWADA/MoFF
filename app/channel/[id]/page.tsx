@@ -83,6 +83,7 @@ export default async function ChannelPage({
           <ChannelVideoList
             channelId={id}
             videos={profile.videos}
+            continuation={profile.videosContinuation}
             q={q}
           />
         )}

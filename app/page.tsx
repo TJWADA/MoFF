@@ -16,7 +16,7 @@ export default function Home() {
         </h1>
         <p className="mt-2 max-w-xl text-sm leading-relaxed text-mute">
           Search for a channel, pick one from the list, browse recent videos,
-          then transcribe a video into actionable trade calls.
+          then transcribe a video into upside stock ideas.
         </p>
         <div className="mt-5">
           <SearchForm autoFocus />
@@ -40,7 +40,7 @@ export default function Home() {
           <li>Search by name, @handle, or channel URL</li>
           <li>Pick a channel from the results</li>
           <li>Open a recent video</li>
-          <li>Transcribe and extract trade calls</li>
+          <li>Transcribe and extract upside stock ideas</li>
         </ol>
       </section>
     </div>
